@@ -64,8 +64,7 @@ public class FlinkEtl {
 
         String hdfsPath = ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.HIVE_HDFSPATH);
 
-        // Storage into hdfs
-        EventTimeBucketAssigner eventTimeBucketAssigner = new EventTimeBucketAssigner();
+
 
         while (rules == null) {
             Thread.sleep(100);
@@ -80,8 +79,11 @@ public class FlinkEtl {
         //处理加工逻辑  数据 加工
         SingleOutputStreamOperator<String> res = data.map(flinkService);
         // 处理分区
-        log.info(res.getName());
+        log.info("----------------------------------------",res.getName());
+        // Storage into hdfs
+        EventTimeBucketAssigner eventTimeBucketAssigner = new EventTimeBucketAssigner();
         eventTimeBucketAssigner.setRules(rules);
+
         StreamingFileSink<String> sink = StreamingFileSink
                 .forRowFormat(new Path(hdfsPath), new SimpleStringEncoder<String>())
                 .withBucketAssigner(eventTimeBucketAssigner)

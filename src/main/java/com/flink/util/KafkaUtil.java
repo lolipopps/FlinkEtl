@@ -32,21 +32,34 @@ public class KafkaUtil {
         while (true) {
             RestElasticUtils restElasticUtils = new RestElasticUtils();
             ArrayList<String> res = restElasticUtils.getAllIndex();
-            for (String re : res) {
-                ArrayList<String> reData = restElasticUtils.getIndexData("system-safe-attack_apt-2020-07");
+            ArrayList<String> allIndexs = new ArrayList<>();
+            allIndexs.add("system-safe-operation_auth-2020-06-17");
+            allIndexs.add("system-safe-attack_ips-2020-06-17");
+            allIndexs.add("audit-app-otp_user-2020-07-07");
+            allIndexs.add("audit-linuxserver-abnormalprogress-2020-06-28");
+            allIndexs.add("audit-linuxserver-address-2020-06-24");
+            allIndexs.add("audit-linuxserver-file-2020-06-30");
+            allIndexs.add("audit-linuxserver-network-2020-06");
+            allIndexs.add("audit-linuxserver-process-2020-06-30");
+            allIndexs.add("audit-linuxserver-property-2020-06-30");
+            allIndexs.add("audit-linuxserver-soft-2020-07");
+            allIndexs.add("audit-linuxserver-user-2020-06-30");
+
+            for (String re : allIndexs) {
+                ArrayList<String> reData = restElasticUtils.getIndexData(re);
                 for (String data : reData) {
                     JsonParser parser = new JsonParser();
                     // 2.获得 根节点元素
                     JsonElement element = parser.parse(data);
                     // 3.根据 文档判断根节点属于 什么类型的 Gson节点对象
                     JsonObject root = element.getAsJsonObject();
-                    String send = null;
-                    send = root.get("syslog").getAsString();
-                    if (send == null || send.equals("")) {
-                        data = data;
-                    } else {
-                        data = send;
-                    }
+                    String send = data;
+//                    send = root.get("syslog").getAsString();
+//                    if (send == null || send.equals("")) {
+//                        data = data;
+//                    } else {
+//                        data = send;
+//                    }
                     ProducerRecord record = new ProducerRecord<String, String>(topic, null, null, data);
                     producer.send(record);
                     log.info("发送数据: " + record.toString());

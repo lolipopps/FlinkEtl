@@ -20,7 +20,7 @@ public class EventTimeBucketAssigner implements BucketAssigner<String, String> {
 
     @Override
     public String getBucketId(String element, Context context) {
-        //log.info("分区数据为： "+element);
+        log.info("分区数据为： "+element);
         String ruleCode = element.split("\\$\\$")[0];
         Rule rule = rules.get(ruleCode);
         //log.info("本次的规则是：" + rule);

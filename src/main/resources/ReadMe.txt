@@ -75,7 +75,7 @@ add jar /root/app/hive-2.3.7/lib/hive-contrib-2.3.7.jar
 
 flink run -m yarn-cluster -yn 2 ./examples/batch/WordCount.jar
 ./bin/flink run -m yarn-cluster   n FlinkEtl.jar
-./bin/flink run -m yarn-cluster  -c com.flink.etl.FlinkEtl FlinkEtl-1.0-SNAPSHOT-jar-with-dependencies.jar
+./bin/flink run -m yarn-cluster -p 6 -yjm 1024m -ytm 4096m  -c com.flink.etl.FlinkEtl FlinkEtl-1.0-SNAPSHOT-jar-with-dependencies.jar
 ./bin/flink run -m yarn-cluster -yn 6 -yjm 1024 -ytm 1024 -d  -c com.flink.ml.FlinkMlTrain FlinkEtl-1.0-SNAPSHOT-jar-with-dependencies.jar
 ./bin/flink run -m yarn-cluster -p 6 -yjm 1024m -ytm 4096m  -c com.flink.ml.FlinkMlTrain ../../data/FlinkEtl-1.0-SNAPSHOT-jar-with-dependencies.jar
 

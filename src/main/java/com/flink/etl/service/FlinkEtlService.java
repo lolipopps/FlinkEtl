@@ -17,7 +17,7 @@ public class FlinkEtlService extends RichMapFunction<String, String> {
 
     @Override
     public String map(String source) {
-        //   log.info("原始数据为  " + source);
+          log.info("原始数据为  " + source);
         StringBuilder res = new StringBuilder();
         Rule value = null;
         // 这一点可以优化要是能快速确认源

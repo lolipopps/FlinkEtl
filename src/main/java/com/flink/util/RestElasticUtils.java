@@ -536,6 +536,7 @@ public class RestElasticUtils {
 
         for (String index : allIndexs) {
 //            if (index.startsWith("audit-linuxserver-soft")) {
+          //  String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
             String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
             System.out.println(sql);
 //            }
