@@ -33,17 +33,17 @@ public class KafkaUtil {
             RestElasticUtils restElasticUtils = new RestElasticUtils();
             ArrayList<String> res = restElasticUtils.getAllIndex();
             ArrayList<String> allIndexs = new ArrayList<>();
-            allIndexs.add("system-safe-operation_auth-2020-06-17");
-            allIndexs.add("system-safe-attack_ips-2020-06-17");
-            allIndexs.add("audit-app-otp_user-2020-07-07");
-            allIndexs.add("audit-linuxserver-abnormalprogress-2020-06-28");
-            allIndexs.add("audit-linuxserver-address-2020-06-24");
+//            allIndexs.add("system-safe-operation_auth-2020-06-17");
+//            allIndexs.add("system-safe-attack_ips-2020-06-17");
+//            allIndexs.add("audit-app-otp_user-2020-07-07");
+//            allIndexs.add("audit-linuxserver-abnormalprogress-2020-06-28");
+//            allIndexs.add("audit-linuxserver-address-2020-06-24");
             allIndexs.add("audit-linuxserver-file-2020-06-30");
-            allIndexs.add("audit-linuxserver-network-2020-06");
+//            allIndexs.add("audit-linuxserver-network-2020-06");
             allIndexs.add("audit-linuxserver-process-2020-06-30");
-            allIndexs.add("audit-linuxserver-property-2020-06-30");
-            allIndexs.add("audit-linuxserver-soft-2020-07");
-            allIndexs.add("audit-linuxserver-user-2020-06-30");
+//            allIndexs.add("audit-linuxserver-property-2020-06-30");
+//            allIndexs.add("audit-linuxserver-soft-2020-07");
+//            allIndexs.add("audit-linuxserver-user-2020-06-30");
 
             for (String re : allIndexs) {
                 ArrayList<String> reData = restElasticUtils.getIndexData(re);

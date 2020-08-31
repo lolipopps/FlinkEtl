@@ -69,7 +69,10 @@ public class DateUtil {
         return YYYY_MM_DD_HH_MM_SS.parseMillis(format(date, YYYY_MM_DD_HH_MM_SS));
     }
 
-
+    public static long format(String date) {
+        Date temp = toDate(date, YYYY_MM_DD_HH_MM_SS);
+        return YYYY_MM_DD_HH_MM_SS.parseMillis(format(temp, YYYY_MM_DD_HH_MM_SS));
+    }
     /**
      * 判断时间是否有效
      *

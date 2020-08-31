@@ -74,7 +74,7 @@ public class RestElasticUtils {
     }
 
     private RestHighLevelClient getClient() {
-        String hostName = parameterTool.get(PropertiesConstants.ELASTIC_HOSTNAME, "127.0.0.1");
+        String hostName = parameterTool.get(PropertiesConstants.ELASTIC_HOSTNAME, "172.18.1.20");
         int port = parameterTool.getInt(PropertiesConstants.ELASTIC_PORT, 9810);
         RestHighLevelClient client = new RestHighLevelClient(
                 RestClient.builder(
@@ -411,7 +411,7 @@ public class RestElasticUtils {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchAllQuery());
             searchSourceBuilder.fetchSource(true);
-            searchSourceBuilder.size(600);
+            searchSourceBuilder.size(50);
             searchRequest.scroll(TimeValue.timeValueMinutes(5L));
             searchRequest.source(searchSourceBuilder);
 //            请求发送
@@ -515,6 +515,22 @@ public class RestElasticUtils {
 
     }
 
+    public String genFlinkSql(HashMap<String, String> paras, String indexName) {
+        String after = indexName.toLowerCase().replaceAll("-", "_");
+
+        StringBuilder sql = new StringBuilder("create view " + after + " as select ");
+        for (Map.Entry<String, String> para : paras.entrySet()) {
+            if (sql.toString().equalsIgnoreCase("create view " + after + " as select ")) {
+                sql.append(" getJsonObject(content,'$." + para.getKey() + "') as " + para.getKey() + "\n");
+            } else {
+                sql.append(" ,getJsonObject(content,'$." + para.getKey() + "') as " + para.getKey() + "\n");
+            }
+        }
+        sql.append("from all_table where log_type='process';");
+        return sql.toString();
+
+    }
+
     public static void main(String[] args) throws Exception {
 
         RestElasticUtils restElasticUtils = new RestElasticUtils();
@@ -536,12 +552,20 @@ public class RestElasticUtils {
 
         for (String index : allIndexs) {
 //            if (index.startsWith("audit-linuxserver-soft")) {
-          //  String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
-            String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
-            System.out.println(sql);
+            //  String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
+             String sql = restElasticUtils.genFlinkSql(restElasticUtils.getIndexSql(index),index);
+             System.out.println(sql);
+        //    HashMap<String, String> tableCols = restElasticUtils.getIndexSql(index);
+//            String col = "";
+//            for (String table : tableCols.keySet()) {
+//                if (col.equalsIgnoreCase("")) {
+//                    col = table;
+//                } else {
+//                    col = col + table+",";
+//                }
 //            }
-
-
+//            System.out.println(index+"="+col.substring(0,col.length()-1));
+//            }
         }
     }
 }
