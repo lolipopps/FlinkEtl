@@ -56,8 +56,8 @@ public class FlinkSoSKafka {
         // Table wordWithCount = tableEnv.sqlQuery("SELECT logType, count(eventTime) cnt FROM all_table group BY logType");
 
         StreamTable streamTable = new StreamTable(tableEnv);
-
-        streamTable.registView();
+        StreamTableFeature streamTableFeature = new StreamTableFeature(tableEnv);
+//        streamTable.registView();
 
 //        Table processTab = tableEnv.sqlQuery("select * from audit_linuxserver_process_2020_06_30");
 //        tableEnv.toRetractStream(processTab, Row.class).print();
@@ -78,8 +78,7 @@ public class FlinkSoSKafka {
 //                "       ,COUNT(distinct `event_level`)                           AS event_level_uv -- 行为种类 \n" +
 //                "       ,AVG(cast(`size`                                AS int)) AS size\n" +
 //                "FROM `process`\n" +
-//                "GROUP BY  TUMBLE(rowTime, INTERVAL '10' SECOND)" +
-//                "         ,`user_name` \n" +
+//                "GROUP BY  `user_name` \n" +
 //                "         ,`ip` \n" +
 //                "         ,`mac` \n" +
 //                "         ,getDateMin(`center_time`) ";
@@ -104,15 +103,15 @@ public class FlinkSoSKafka {
 //                "         ,`ip` \n" +
 //                "         ,`mac` \n" +
 //                "         ,getDateMin(`center_time`) ";
-
-        String selectProcess = "select * from `process`";
-        Table process = tableEnv.sqlQuery(selectProcess);
-        process.execute().print();
-//        TableResult process = tableEnv.executeSql(select);
+//        Table process = tableEnv.sqlQuery(selectProcess);
 //        tableEnv.toRetractStream(process, Row.class).print();
+//        process.execute().print();
+
+        Table  process = tableEnv.sqlQuery("select * from TTT1");
+        tableEnv.toRetractStream(process, Row.class).print();
 //        Table file = tableEnv.sqlQuery(selectFile);
-////        tableEnv.toRetractStream(file, Row.class).print();
-//        file.execute().print();
+//        tableEnv.toRetractStream(file, Row.class).print();
+
 
 
 //        tableEnv.toRetractStream(wordWithCount, Row.class).print();

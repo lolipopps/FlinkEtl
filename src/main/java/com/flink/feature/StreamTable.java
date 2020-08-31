@@ -14,6 +14,7 @@ public class StreamTable {
     public StreamTable(StreamTableEnvironment env) {
         this.tableEnv = env;
         init();
+        registView();
     }
 
     private void init() {
@@ -45,7 +46,6 @@ public class StreamTable {
 
     public void registView() {
         for (Map.Entry<String, String> tableView : tables.entrySet()) {
-            System.out.println(tableView.getValue());
             tableEnv.executeSql(tableView.getValue());
         }
 

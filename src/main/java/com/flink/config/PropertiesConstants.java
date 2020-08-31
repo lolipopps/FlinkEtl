@@ -25,6 +25,8 @@ public class PropertiesConstants {
     public static final String ELASTIC_PORT = "elastic.port";
     public static final String ELASTIC_HOSTNAME = "elastic.hostname";
     public static final String HDFS_FILESIZE = "hdfs.filesize";
+    public static final String SQL_FILE = "./sql/feature.sql";
+
 
 
 }

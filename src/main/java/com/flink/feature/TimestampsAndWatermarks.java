@@ -31,7 +31,7 @@ public class TimestampsAndWatermarks implements AssignerWithPeriodicWatermarks<B
     @Nullable
     @Override
     public Watermark getCurrentWatermark() {
-        long maxTimeLag = 5000;
+        long maxTimeLag = 500000000;
         return new Watermark(currentTimestamp == Long.MIN_VALUE ? Long.MIN_VALUE : currentTimestamp - maxTimeLag);
     }
 
