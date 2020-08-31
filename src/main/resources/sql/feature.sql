@@ -1,4 +1,4 @@
-CREATE VIEW  TTT1 AS
+CREATE VIEW  process_cnt AS
 SELECT  `user_name`                                               AS userid -- 用户id
        ,`ip`                                                      AS login_ip -- 客户端id
        ,`mac`                                                     AS mac -- 服务器ip
@@ -22,7 +22,7 @@ GROUP BY  `user_name`
          ,getDateMIN(`center_time`);
 
 
-CREATE VIEW  TTT2 AS
+CREATE VIEW  file_cnt AS
 SELECT  `user_name`                                             AS userid
      ,`ip`                                                    AS login_ip -- 客户端id
      ,`mac`                                                   AS mac -- 服务器ip

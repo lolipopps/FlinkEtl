@@ -107,7 +107,7 @@ public class FlinkSoSKafka {
 //        tableEnv.toRetractStream(process, Row.class).print();
 //        process.execute().print();
 
-        Table  process = tableEnv.sqlQuery("select * from TTT1");
+        Table  process = tableEnv.sqlQuery("select * from process_cnt");
         tableEnv.toRetractStream(process, Row.class).print();
 //        Table file = tableEnv.sqlQuery(selectFile);
 //        tableEnv.toRetractStream(file, Row.class).print();
