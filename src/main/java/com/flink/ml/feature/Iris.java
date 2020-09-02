@@ -13,8 +13,12 @@ public class Iris extends BaseData {
     }
 
     @Override
-    public void getData() {
+    public void getStreamData() {
 
+    }
+
+    @Override
+    public void getBatchData() {
         CsvSourceBatchOp sourceBatchOp = new CsvSourceBatchOp().setFilePath("src\\main\\resources\\iris.csv").setSchemaStr(schemaStr);
         // 向量化
         VectorAssembler va = new VectorAssembler()
@@ -23,6 +27,5 @@ public class Iris extends BaseData {
         this.mapProcess.add(va);
         this.baseSourceBatchOp = sourceBatchOp;
         getTrainData(baseSourceBatchOp);
-
     }
 }

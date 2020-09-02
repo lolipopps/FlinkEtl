@@ -16,7 +16,8 @@ SELECT  `user_name`                                               AS userid -- �
        ,COUNT(distinct `event_level`)                             AS event_level_uv -- 行为种类
        ,AVG(cast(`size`                                  AS int)) AS size
 FROM `process`
-GROUP BY  `user_name`
+GROUP BY TUMBLE(rowTime, INTERVAL '10' SECOND)
+         ,`user_name`
          ,`ip`
          ,`mac`
          ,getDateMIN(`center_time`);
@@ -38,23 +39,8 @@ SELECT  `user_name`                                             AS userid
      ,COUNT(distinct `operation_type`)                                AS operation_type_uv -- 类型种类
      ,AVG(cast(`size`                                AS int)) AS size
 FROM `file`
-GROUP BY `user_name`
+GROUP BY TUMBLE(rowTime, INTERVAL '10' SECOND)
+        ,`user_name`
         ,`ip`
         ,`mac`
-        ,getDateMin(`center_time`);
-
-
-CREATE TABLE kafkaSinkTable (
-user_id BIGINT,
-item_id BIGINT,
-category_id BIGINT,
-behavior STRING,
-ts TIMESTAMP(3)
-) WITH (
-'connector' = 'kafka',
-'topic' = 'user_behavior',
-'properties.bootstrap.servers' = 'localhost:9092',
-'properties.group.id' = 'testGroup',
-'format' = 'csv',
-'scan.startup.mode' = 'earliest-offset'
-)
+        ,getDateMin(`center_time`)

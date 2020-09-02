@@ -19,19 +19,19 @@ public class TimestampsAndWatermarks implements AssignerWithPeriodicWatermarks<B
 
     @Override
     public long extractTimestamp(BaseSource baseSource, long previousElementTimestamp) {
-        long timestamp = baseSource.getEventTime();
+        long timestamp = baseSource.getRowTime();
         currentTimestamp = Math.max(timestamp, currentTimestamp);
 //        log.info("event timestamp = {}, {}, CurrentWatermark = {}, {}", baseSource.getEventTime(),
 //                DateUtil.format(baseSource.getEventTime(), YYYY_MM_DD_HH_MM_SS),
 //                getCurrentWatermark().getTimestamp(),
 //                DateUtil.format(getCurrentWatermark().getTimestamp(), YYYY_MM_DD_HH_MM_SS));
-        return baseSource.getEventTime();
+        return baseSource.getRowTime();
     }
 
     @Nullable
     @Override
     public Watermark getCurrentWatermark() {
-        long maxTimeLag = 500000000;
+        long maxTimeLag = 5000;
         return new Watermark(currentTimestamp == Long.MIN_VALUE ? Long.MIN_VALUE : currentTimestamp - maxTimeLag);
     }
 

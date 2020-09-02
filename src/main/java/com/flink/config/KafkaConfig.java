@@ -66,7 +66,23 @@ public class KafkaConfig {
         ParameterTool parameter = (ParameterTool) env.getConfig().getGlobalJobParameters();
 
         // 消费的主题
-        String topic = parameter.getRequired(PropertiesConstants.METRICS_TOPIC);
+        String topic = parameter.getRequired(PropertiesConstants.SOURCE_TOPIC);
+
+        // 自定义开始时间
+        Long time = parameter.getLong(PropertiesConstants.CONSUMER_FROM_TIME, 0L);
+        try {
+            return buildSource(env, topic, time);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static DataStreamSource<String> buildSource(StreamExecutionEnvironment env,String topic) {
+        ParameterTool parameter = (ParameterTool) env.getConfig().getGlobalJobParameters();
+
+        // 消费的主题
+        // String topic = parameter.getRequired(PropertiesConstants.SOURCE_TOPIC);
 
         // 自定义开始时间
         Long time = parameter.getLong(PropertiesConstants.CONSUMER_FROM_TIME, 0L);
@@ -103,7 +119,7 @@ public class KafkaConfig {
     private static Map<KafkaTopicPartition, Long> buildOffsetByTime(Properties props, ParameterTool parameterTool, Long time) {
         props.setProperty("group.id", "query_time_" + time);
         KafkaConsumer consumer = new KafkaConsumer(props);
-        List<PartitionInfo> partitionsFor = consumer.partitionsFor(parameterTool.getRequired(PropertiesConstants.METRICS_TOPIC));
+        List<PartitionInfo> partitionsFor = consumer.partitionsFor(parameterTool.getRequired(PropertiesConstants.SOURCE_TOPIC));
         Map<TopicPartition, Long> partitionInfoLongMap = new HashMap<>();
         for (PartitionInfo partitionInfo : partitionsFor) {
             partitionInfoLongMap.put(new TopicPartition(partitionInfo.topic(), partitionInfo.partition()), time);

@@ -4,7 +4,8 @@ public class PropertiesConstants {
     public static final String KAFKA_ZOOKEEPER_CONNECT = "kafka.zookeeper.connect";
     public static final String KAFKA_GROUP_ID = "kafka.group.id";
     public static final String DEFAULT_KAFKA_GROUP_ID = "kafka.group.id";
-    public static final String METRICS_TOPIC = "kafka.metrics.topic";
+    public static final String SOURCE_TOPIC = "kafka.source.topic";
+    public static final String SINK_TOPIC = "kafka.sink.topic";
     public static final String CONSUMER_FROM_TIME = "consumer.from.time";
     public static final String STREAM_SINK_PARALLELISM = "stream.sink.parallelism";
     public static final String STREAM_PARALLELISM = "stream.parallelism";
@@ -25,7 +26,7 @@ public class PropertiesConstants {
     public static final String ELASTIC_PORT = "elastic.port";
     public static final String ELASTIC_HOSTNAME = "elastic.hostname";
     public static final String HDFS_FILESIZE = "hdfs.filesize";
-    public static final String SQL_FILE = "./sql/feature.sql";
+    public static final String SQL_FILE = "./sql/windowsFeature.sql";
 
 
 

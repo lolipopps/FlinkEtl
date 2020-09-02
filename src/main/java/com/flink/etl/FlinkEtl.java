@@ -13,6 +13,7 @@ import com.flink.hive.HiveDB;
 import com.flink.util.ExecutionEnvUtil;
 import com.flink.util.MySQLUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.api.common.functions.FilterFunction;
 import org.apache.flink.api.common.serialization.SimpleStringEncoder;
 import org.apache.flink.core.fs.Path;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -27,6 +28,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executors;
@@ -47,9 +49,16 @@ public class FlinkEtl {
         threadPool.scheduleAtFixedRate(new GetRulesJob(), 0, 1, TimeUnit.MINUTES);
 
         threadPool.scheduleAtFixedRate(new LoadDataJob(), 0, 1, TimeUnit.HOURS);
-
+        HashMap<String, DataStreamSource<String>> sources = new HashMap<>();
         // Flink 读取 kafka 数据
-        DataStreamSource<String> data = KafkaConfig.buildSource(streamEnv);
+        DataStreamSource<String> allData = null;
+        for (String topic : ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.SOURCE_TOPIC).split(",")) {
+            if (allData == null) {
+                allData = KafkaConfig.buildSource(streamEnv, topic);
+            } else {
+                allData.union(KafkaConfig.buildSource(streamEnv, topic));
+            }
+        }
 
 
         // 写 hdfs 策略
@@ -61,9 +70,7 @@ public class FlinkEtl {
                 .build();
 
 
-
         String hdfsPath = ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.HIVE_HDFSPATH);
-
 
 
         while (rules == null) {
@@ -71,15 +78,21 @@ public class FlinkEtl {
             log.info("规则尚为空,需等待");
         }
 
-        log.info("获取规则个数： ",rules.size());
+        log.info("获取规则个数： ", rules.size());
 
         FlinkEtlService flinkService = new FlinkEtlService();
         flinkService.setRules(rules);
 
         //处理加工逻辑  数据 加工
-        SingleOutputStreamOperator<String> res = data.map(flinkService);
+        SingleOutputStreamOperator<String> res = allData.map(flinkService).filter(new FilterFunction<String>() {
+            @Override
+            public boolean filter(String value) throws Exception {
+                return value != null;
+            }
+        });
+
         // 处理分区
-        log.info("----------------------------------------",res.getName());
+        log.info("----------------------------------------", res.getName());
         // Storage into hdfs
         EventTimeBucketAssigner eventTimeBucketAssigner = new EventTimeBucketAssigner();
         eventTimeBucketAssigner.setRules(rules);
@@ -133,7 +146,6 @@ public class FlinkEtl {
             return list;
         }
     }
-
 
 
 }

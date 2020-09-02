@@ -42,9 +42,9 @@ public class Model {
 
 
         // 训练模型
-        pipelineModel = pipeline.add(trainer).fit(baseData.getTrainData());
+        pipelineModel = pipeline.add(trainer).fit(baseData.getTrainBatchData());
 
-        pipelineModel.transform(baseData.getTestData()).firstN(10).print();
+        pipelineModel.transform(baseData.getTestBatchData()).firstN(10).print();
 
     }
 

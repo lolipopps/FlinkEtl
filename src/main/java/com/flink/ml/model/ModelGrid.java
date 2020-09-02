@@ -102,9 +102,9 @@ public class ModelGrid {
         } else {
             getRegressionGridSearchCV();
         }
-        GridSearchCVModel modl = gridSearchCV.fit(model.baseData.getTrainData());
+        GridSearchCVModel modl = gridSearchCV.fit(model.baseData.getTrainBatchData());
 
-        BatchOperator inOp = modl.transform(model.baseData.getTestData());
+        BatchOperator inOp = modl.transform(model.baseData.getTestBatchData());
 
         BinaryClassMetrics metrics = new EvalBinaryClassBatchOp().setLabelCol("label").setPredictionDetailCol("prediction_detail" +
                 "").linkFrom(inOp).collectMetrics();

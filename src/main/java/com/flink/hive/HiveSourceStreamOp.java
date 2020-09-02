@@ -1,4 +1,4 @@
-package com.flink.ml.model;
+package com.flink.hive;
 
 import com.alibaba.alink.common.io.BaseDB;
 import com.alibaba.alink.common.io.annotations.AnnotationUtils;
@@ -6,8 +6,6 @@ import com.alibaba.alink.common.io.annotations.IOType;
 import com.alibaba.alink.common.io.annotations.IoOpAnnotation;
 import com.alibaba.alink.operator.stream.source.BaseSourceStreamOp;
 import com.alibaba.alink.operator.stream.source.DBSourceStreamOp;
-import com.flink.hive.HiveDB;
-import com.flink.hive.HiveSourceParams;
 import org.apache.flink.ml.api.misc.param.Params;
 import org.apache.flink.table.api.Table;
 

@@ -20,10 +20,10 @@ import java.util.Random;
  * @Description: 往kafka中写数据,可以使用这个main函数进行测试
  */
 @Slf4j
-public class KafkaUtil {
+public class KafkaUtil2 {
     public static void writeToKafka() throws InterruptedException {
         Properties props = null;
-        String topic = "flinkEtl";
+        String topic = "flinkEtlSource";
         props = KafkaConfig.buildKafkaProps();
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
@@ -64,7 +64,7 @@ public class KafkaUtil {
                     ProducerRecord record = new ProducerRecord<String, String>(topic, null, null, data);
                     producer.send(record);
                     log.info("发送数据: " + record.toString());
-                    Thread.sleep(10);
+                    Thread.sleep(100);
                 }
             }
             producer.flush();

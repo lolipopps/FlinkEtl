@@ -13,8 +13,15 @@ public class AvazuSmall extends BaseData {
                 + "C16 int, C17 int, C18 int, C19 int, C20 int, C21 int";
     }
 
+
+
     @Override
-    public void getData() {
+    public void getStreamData() {
+
+    }
+
+    @Override
+    public void getBatchData() {
         CsvSourceBatchOp trainBatchData = new CsvSourceBatchOp()
                 .setFilePath("src\\main\\resources\\avazu-small.csv")
                 .setSchemaStr(schemaStr);
@@ -42,8 +49,5 @@ public class AvazuSmall extends BaseData {
                 .setSelectedCols(numericalColNames);
 
         process.add(standardScaler);
-
-        getData();
     }
-
 }

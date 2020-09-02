@@ -12,7 +12,6 @@ import java.util.concurrent.ConcurrentHashMap;
 @Data
 @Slf4j
 public class FlinkEtlService extends RichMapFunction<String, String> {
-
     private ConcurrentHashMap<String, Rule> rules;
 
     @Override

@@ -30,7 +30,8 @@ public class FlinkFeatureService extends RichMapFunction<String, BaseSource> {
         baseSource.setContent(source);
         baseSource.setEventTime(eventTime);
         baseSource.setLogType(logType);
-        baseSource.setRowTime(eventTime);
+        baseSource.setRowTime(new Date().getTime());
+//        System.out.println(baseSource.toString());
         return baseSource;
     }
 }
