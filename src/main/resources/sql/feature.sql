@@ -23,10 +23,10 @@ GROUP BY  `user_name`
 
 
 CREATE VIEW  file_cnt AS
-SELECT  `user_name`                                             AS userid
+SELECT  `user_name`                                             AS user_id
      ,`ip`                                                    AS login_ip -- 客户端id
      ,`mac`                                                   AS mac -- 服务器ip
-     ,COUNT(`ip`)                                             AS pv
+     ,COUNT(`ip`)                                             AS all_pv
      ,getDateMin(`center_time`)                            AS date_munit
      ,MIN(getDateDiffSecond(`event_time`,`center_time`))        AS min_druid -- 最小持续时间
      ,MAX(getDateDiffSecond(`event_time`,`center_time`))        AS max_druid -- 最大持续时间
@@ -42,19 +42,3 @@ GROUP BY `user_name`
         ,`ip`
         ,`mac`
         ,getDateMin(`center_time`);
-
-
-CREATE TABLE kafkaSinkTable (
-user_id BIGINT,
-item_id BIGINT,
-category_id BIGINT,
-behavior STRING,
-ts TIMESTAMP(3)
-) WITH (
-'connector' = 'kafka',
-'topic' = 'user_behavior',
-'properties.bootstrap.servers' = 'localhost:9092',
-'properties.group.id' = 'testGroup',
-'format' = 'csv',
-'scan.startup.mode' = 'earliest-offset'
-)

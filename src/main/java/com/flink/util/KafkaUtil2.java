@@ -38,8 +38,8 @@ public class KafkaUtil2 {
 //            allIndexs.add("audit-app-otp_user-2020-07-07");
 //            allIndexs.add("audit-linuxserver-abnormalprogress-2020-06-28");
 //            allIndexs.add("audit-linuxserver-address-2020-06-24");
-//            allIndexs.add("audit-linuxserver-file-2020-06-30");
-            allIndexs.add("audit-linuxserver-process-2020-06-30");
+              allIndexs.add("audit-linuxserver-file-2020-06-30");
+//            allIndexs.add("audit-linuxserver-process-2020-06-30");
 //            allIndexs.add("audit-linuxserver-network-2020-06");
 //
 //            allIndexs.add("audit-linuxserver-property-2020-06-30");
@@ -64,7 +64,7 @@ public class KafkaUtil2 {
                     ProducerRecord record = new ProducerRecord<String, String>(topic, null, null, data);
                     producer.send(record);
                     log.info("发送数据: " + record.toString());
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 }
             }
             producer.flush();

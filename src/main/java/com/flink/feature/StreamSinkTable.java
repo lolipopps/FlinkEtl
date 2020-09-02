@@ -8,14 +8,12 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-public class StreamTableFeature {
+public class StreamSinkTable {
     HashMap<String, String> sqls = new HashMap<>();
     StreamTableEnvironment tableEnv;
 
-    public StreamTableFeature(StreamTableEnvironment env) {
+    public StreamSinkTable(StreamTableEnvironment env) {
         this.tableEnv = env;
         try {
             init();
@@ -27,23 +25,22 @@ public class StreamTableFeature {
 
     public void init() throws IOException {
 //        ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.SQL_FILE);
-        InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(PropertiesConstants.FEATURE_SQL_FILE);
+        InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(PropertiesConstants.SINK_SQL_FILE);
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;
         while ((length = inputStream.read(buffer)) != -1) {
             result.write(buffer, 0, length);
         }
-        Pattern pattern = Pattern.compile("CREATE VIEW(.*)AS");
         String[] allSql = result.toString("UTF-8").split(";");
-        for (String sql : allSql) {
-            Matcher matcher = pattern.matcher(sql);
-            if (matcher.find()) {
-                sqls.put(matcher.group(1).trim(), sql);
-                tableEnv.executeSql(sql);
-            }
+        for (String excSql : allSql) {
+            System.out.println(excSql);
+            tableEnv.executeSql(excSql);
+            sqls.put(excSql.substring(0, 10), excSql);
         }
+
     }
+
 
     public void printRegistTable() {
         String[] res = tableEnv.listTables();

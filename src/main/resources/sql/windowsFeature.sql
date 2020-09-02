@@ -1,8 +1,8 @@
 CREATE VIEW  process_cnt AS
-SELECT  `user_name`                                               AS userid -- 用户id
+SELECT  `user_name`                                               AS user_id -- 用户id
        ,`ip`                                                      AS login_ip -- 客户端id
        ,`mac`                                                     AS mac -- 服务器ip
-       ,COUNT(`ip`)                                               AS pv -- pv 数量
+       ,COUNT(`ip`)                                               AS all_pv -- pv 数量
        ,getDateMIN(`center_time`)                                 AS date_munit
        ,MIN(getDateDiffSecond(`event_time`,`center_time`))        AS min_druid -- 最小持续时间
        ,MAX(getDateDiffSecond(`event_time`,`center_time`))        AS max_druid -- 最大持续时间
@@ -24,10 +24,10 @@ GROUP BY TUMBLE(rowTime, INTERVAL '10' SECOND)
 
 
 CREATE VIEW  file_cnt AS
-SELECT  `user_name`                                             AS userid
+SELECT  `user_name`                                             AS user_id
      ,`ip`                                                    AS login_ip -- 客户端id
      ,`mac`                                                   AS mac -- 服务器ip
-     ,COUNT(`ip`)                                             AS pv
+     ,COUNT(`ip`)                                             AS all_pv
      ,getDateMin(`center_time`)                            AS date_munit
      ,MIN(getDateDiffSecond(`event_time`,`center_time`))        AS min_druid -- 最小持续时间
      ,MAX(getDateDiffSecond(`event_time`,`center_time`))        AS max_druid -- 最大持续时间
@@ -43,4 +43,5 @@ GROUP BY TUMBLE(rowTime, INTERVAL '10' SECOND)
         ,`user_name`
         ,`ip`
         ,`mac`
-        ,getDateMin(`center_time`)
+        ,getDateMin(`center_time`);
+

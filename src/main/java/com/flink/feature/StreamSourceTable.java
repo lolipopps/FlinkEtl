@@ -7,11 +7,11 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 import java.util.*;
 
 @Data
-public class StreamTable {
+public class StreamSourceTable {
     StreamTableEnvironment tableEnv;
     HashMap<String, String> tables = new HashMap<>();
 
-    public StreamTable(StreamTableEnvironment env) {
+    public StreamSourceTable(StreamTableEnvironment env) {
         this.tableEnv = env;
         init();
         registView();

@@ -58,7 +58,7 @@ public class FlinkSoSKafkaback {
         tableEnv.createTemporarySystemFunction("getDateMin", getDateMin.class);
         // Table wordWithCount = tableEnv.sqlQuery("SELECT logType, count(eventTime) cnt FROM all_table group BY logType");
 
-        StreamTable streamTable = new StreamTable(tableEnv);
+        StreamSourceTable streamSourceTable = new StreamSourceTable(tableEnv);
         StreamTableFeature streamTableFeature = new StreamTableFeature(tableEnv);
 
 //        Table processTab = tableEnv.sqlQuery("select * from audit_linuxserver_process_2020_06_30");
