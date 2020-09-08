@@ -27,27 +27,27 @@ SELECT  user_name
        ,ul_style 
        ,substr(regexp_replace(center_time,"T"," "),1,19) event_time
 FROM stg.audit_linuxserver_process
-WHERE date_format(substr(regexp_replace(center_time,"T"," "),1,19),"yyyyMMddHH") = '${hiveconf:stat_hour}'; 
+WHERE date_format(substr(regexp_replace(center_time,"T"," "),1,19),"yyyyMMddHH") = '${hiveconf:stat_hour}'; -- 数据加工 
 
--- 数据加工
-DROP TABLE IF EXISTS dw.audit_linuxserver_process_${hiveconf:stat_hour}; 
+DROP TABLE IF EXISTS dw.audit_linuxserver_process_${hiveconf:stat_hour};
 CREATE TABLE dw.audit_linuxserver_process_${hiveconf:stat_hour} AS
-SELECT  user_name                                             AS userid 
-       ,ip                                                    AS login_ip -- 客户端id 
-       ,mac                                                   AS mac -- 服务器ip 
-       ,COUNT(ip)                                             AS pv 
-       ,MIN(getDateDiffSecond(event_time,center_time))        AS min_druid -- 最小持续时间 
-       ,MAX(getDateDiffSecond(event_time,center_time))        AS max_druid -- 最大持续时间 
-       ,FLOOR(AVG(getDateDiffSecond(event_time,center_time))) AS avg_druid -- 平均持续时间 
-       ,SUM( AVG(getDateDiffSecond(event_time,center_time)))  AS sum_druid -- 总大持续时间 
-       ,COUNT(distinct process)                               AS process_uv -- 进程种类 
-       ,COUNT(distinct ul_action)                             AS ul_action_uv -- 类型种类 
-       ,COUNT(distinct ul_style)                              AS ul_style_uv -- 类型种类 
-       ,COUNT(distinct ul_pid)                                AS ul_pid_uv -- 类型种类 
-       ,COUNT(distinct behaviour_type)                        AS behaviour_type_uv -- 行为种类 
-       ,COUNT(distinct event_level)                           AS event_level_uv -- 行为种类 
-       ,AVG(cast(size                                AS int)) AS size
+SELECT  user_name                                                                  AS userid 
+       ,ip                                                                         AS login_ip -- 客户端id 
+       ,mac                                                                        AS mac -- 服务器ip 
+       ,COUNT(ip)                                                                  AS pv 
+       ,MIN(unix_timestamp(center_time) - unix_timestamp(event_time) )/1000        AS min_druid -- 最小持续时间 
+       ,MAX(unix_timestamp(center_time) - unix_timestamp(event_time) )/1000        AS max_druid -- 最大持续时间 
+       ,FLOOR(AVG(unix_timestamp(center_time) - unix_timestamp(event_time))) /1000 AS avg_druid -- 平均持续时间 
+       ,SUM(unix_timestamp(center_time) - unix_timestamp(event_time)) / 1000       AS sum_druid -- 总大持续时间 
+       ,COUNT(distinct process)                                                    AS process_uv -- 进程种类 
+       ,COUNT(distinct ul_action)                                                  AS ul_action_uv -- 类型种类 
+       ,COUNT(distinct ul_style)                                                   AS ul_style_uv -- 类型种类 
+       ,COUNT(distinct ul_pid)                                                     AS ul_pid_uv -- 类型种类 
+       ,COUNT(distinct behaviour_type)                                             AS behaviour_type_uv -- 行为种类 
+       ,COUNT(distinct event_level)                                                AS event_level_uv -- 行为种类 
+       ,AVG(cast(size                                                     AS int)) AS size
 FROM ods.audit_linuxserver_process
+WHERE stat_hour = '${hiveconf:stat_hour}' 
 GROUP BY  user_name 
          ,ip 
-         ,mac 
+         ,mac ;

@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-Main-Class: com.flink.etl.FlinkEtl
+Main-Class: com.hyt.flink.etl.FlinkEtl
 

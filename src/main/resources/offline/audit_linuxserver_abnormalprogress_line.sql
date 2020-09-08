@@ -47,8 +47,8 @@ SELECT  user_name                                                               
        ,AVG(size)                                                                 AS size 
        ,AVG(limit_use)                                                            AS limit_use 
        ,AVG(free)                                                                 AS free
-FROM ods.audit_linuxserver_abnormalprogres
+FROM ods.audit_linuxserver_abnormalprogress
 WHERE stat_hour = '${hiveconf:stat_hour}' 
 GROUP BY  user_name 
          ,ip 
-         ,mac 
+         ,mac ;

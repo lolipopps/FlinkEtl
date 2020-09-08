@@ -26,7 +26,7 @@ partitioned by(stat_hour string )
 ROW FORMAT DELIMITED 
 FIELDS TERMINATED BY ',';
 
-
+drop table  ods.system_safe_attack_ips;
 CREATE EXTERNAL TABLE IF NOT EXISTS ods.system_safe_attack_ips ( 
 event_son_type string 
 ,attack_type string 
@@ -35,8 +35,7 @@ event_son_type string
 ,threat_id string 
 ,hit_direction string 
 ,protection string 
-,zone_name string 
-,syslog string 
+,zone_name string  
 ,severity_level string 
 ,sub_protection string 
 ,log_type string 

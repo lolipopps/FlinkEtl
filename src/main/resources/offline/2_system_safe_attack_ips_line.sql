@@ -40,7 +40,7 @@ SELECT  event_son_type
        ,bid 
        ,facility 
        ,msb 
-       ,event_time
+       ,substr(regexp_replace(event_time,"T"," "),1,19) AS event_time
 FROM stg.system_safe_attack_ips
 WHERE date_format(substr(regexp_replace(center_time,"T"," "),1,19),"yyyyMMddHH") = '${hiveconf:stat_hour}'; 
 
@@ -67,13 +67,14 @@ SELECT  ip                                                                      
        ,SUM(case WHEN severity_level = '中' THEN 1 else 0 end)                                           AS medium_cnt 
        ,SUM(case WHEN severity_level = '高' THEN 1 else 0 end)                                           AS high_cnt 
        ,SUM(case WHEN severity_level = '严重' THEN 1 else 0 end)                                          AS critical_cnt 
-       ,MIN(unix_timestamp(center_time) - event_time )/1000                                             AS min_druid -- 最小持续时间 
-       ,MAX(unix_timestamp(center_time) - event_time )/1000                                             AS min_druid -- 最大持续时间 
-       ,SUM(unix_timestamp(center_time) - event_time )/1000                                             AS min_druid -- 总大持续时间 
-       ,FLOOR(AVG(unix_timestamp(center_time) - event_time))/1000                                       AS avg_druid -- 平均持续时间 
+       ,MIN(unix_timestamp(center_time) - unix_timestamp(event_time) )/1000                             AS min_druid -- 最小持续时间 
+       ,MAX(unix_timestamp(center_time) - unix_timestamp(event_time) )/1000                             AS min_druid -- 最大持续时间 
+       ,SUM(unix_timestamp(center_time) - unix_timestamp(event_time) )/1000                             AS min_druid -- 总大持续时间 
+       ,FLOOR(AVG(unix_timestamp(center_time) - unix_timestamp(event_time)))/1000                       AS avg_druid -- 平均持续时间 
        ,COUNT(distinct module_type)                                                                     AS module_type_uv 
        ,SUM(case WHEN module_type = 'safe' THEN 1 else null end)                                        AS safe_cnt
 FROM ods.system_safe_attack_ips
+WHERE stat_hour = '${hiveconf:stat_hour}' 
 GROUP BY  ip 
          ,facility_ip 
          ,CONCAT(substr(regexp_replace(center_time,"T"," "),1,15) ,"0")

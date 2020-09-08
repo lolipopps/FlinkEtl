@@ -27,6 +27,8 @@ SELECT  event_sender
 FROM stg.audit_linuxserver_network
 WHERE date_format(substr(regexp_replace(center_time,"T"," "),1,19),"yyyyMMddHH") = '${hiveconf:stat_hour}'; 
 
+DROP TABLE IF EXISTS dw.audit_linuxserver_network_${hiveconf:stat_hour}; -- 数据加工
+CREATE TABLE dw.audit_linuxserver_network_${hiveconf:stat_hour} AS
 SELECT  user_name                                                                 AS userid 
        ,ip                                                                        AS login_ip -- 客户端id 
        ,remote_ip                                                                 AS facility_ip 
@@ -44,7 +46,8 @@ SELECT  user_name                                                               
        ,COUNT(distinct process_name)                                              AS process_name_uv 
        ,AVG(size)                                                                 AS avg_size
 FROM ods.audit_linuxserver_network
+WHERE stat_hour = '${hiveconf:stat_hour}' 
 GROUP BY  user_name 
          ,ip 
          ,mac 
-         ,remote_ip 
+         ,remote_ip ;
