@@ -411,7 +411,7 @@ public class RestElasticUtils {
             SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder();
             searchSourceBuilder.query(QueryBuilders.matchAllQuery());
             searchSourceBuilder.fetchSource(true);
-            searchSourceBuilder.size(50);
+            searchSourceBuilder.size(500);
             searchRequest.scroll(TimeValue.timeValueMinutes(5L));
             searchRequest.source(searchSourceBuilder);
 //            请求发送
@@ -494,26 +494,53 @@ public class RestElasticUtils {
 
     }
 
-    public String genHiveSql(HashMap<String, String> paras, String indexName) {
+    public String genDmlHiveSql(HashMap<String, String> paras, String indexName) {
         String after = indexName.toLowerCase().replaceAll("-", "_");
-        StringBuilder sql = new StringBuilder("CREATE EXTERNAL TABLE default." + after + "\n(");
+        StringBuilder dmlSql = new StringBuilder("CREATE EXTERNAL TABLE stg." + after + "\n(");
+        StringBuilder partDmlsql = new StringBuilder("CREATE EXTERNAL TABLE ods." + after + "\n(");
         for (Map.Entry<String, String> para : paras.entrySet()) {
-            if (sql.toString().equalsIgnoreCase("CREATE EXTERNAL TABLE default." + after + "\n(")) {
-                sql.append(" " + para.getKey() + " " + para.getValue());
+            if (dmlSql.toString().equalsIgnoreCase("CREATE EXTERNAL TABLE stg." + after + "\n(")) {
+                dmlSql.append(" " + para.getKey() + " " + para.getValue());
+                partDmlsql.append(" " + para.getKey() + " " + para.getValue());
             } else {
-                sql.append(" ," + para.getKey() + " " + para.getValue() + "\n");
+                dmlSql.append(" ," + para.getKey() + " " + para.getValue() + "\n");
+                partDmlsql.append(" ," + para.getKey() + " " + para.getValue() + "\n");
             }
         }
-        sql.append(")\n" +
+
+        dmlSql.append(")\n" +
                 "STORED BY 'org.elasticsearch.hadoop.hive.EsStorageHandler'\n" +
                 "TBLPROPERTIES(\n" +
                 "'es.resource'='" + indexName + "*/doc',\n" +
                 "'es.nodes'='kafka:9810'\n" +
                 ");\n");
-        sql.append("select * from default." + after + ";\n");
-        return sql.toString();
+        partDmlsql.append(")" +
+                "partitioned by(stat_hour string ) \n" +
+                "ROW FORMAT DELIMITED \n" +
+                "FIELDS TERMINATED BY ',';");
+        System.out.println(dmlSql.toString());
+        System.out.println(partDmlsql.toString());
+        return dmlSql.toString();
 
     }
+
+    public String genOdsHiveSql(HashMap<String, String> paras, String indexName) {
+        String after = indexName.toLowerCase().replaceAll("-", "_");
+        StringBuilder dmlSql = new StringBuilder("INSERT OVERWRITE TABLE ods." + after + " partition(stat_hour='${hiveconf:stat_hour}')\n select");
+        for (Map.Entry<String, String> para : paras.entrySet()) {
+            if (dmlSql.toString().equalsIgnoreCase("INSERT OVERWRITE TABLE ods.\"+after +\" partition(stat_hour='${hiveconf:stat_hour}')\\n select")) {
+                dmlSql.append(" " + para.getKey());
+            } else {
+                dmlSql.append(" ," + para.getKey() + "\n");
+            }
+        }
+
+        dmlSql.append(")\n from stg." + after + " \nWHERE date_format(substr(regexp_replace(center_time,\"T\",\" \"),1,19),\"yyyyMMddHH\") = '${hiveconf:stat_hour}'; ");
+        System.out.println(dmlSql.toString());
+        return dmlSql.toString();
+
+    }
+
 
     public String genFlinkSql(HashMap<String, String> paras, String indexName) {
         String after = indexName.toLowerCase().replaceAll("-", "_");
@@ -539,6 +566,8 @@ public class RestElasticUtils {
         ArrayList<String> allIndexs = new ArrayList<>();
         allIndexs.add("system-safe-operation_auth-2020-06-17");
         allIndexs.add("system-safe-attack_ips-2020-06-17");
+        allIndexs.add("system-safe-attack_cc-2020-06-03");
+        allIndexs.add("system-safe-attack_waf-2020-06-22");
         allIndexs.add("audit-app-otp_user-2020-07-07");
         allIndexs.add("audit-linuxserver-abnormalprogress-2020-06-28");
         allIndexs.add("audit-linuxserver-address-2020-06-24");
@@ -552,10 +581,11 @@ public class RestElasticUtils {
 
         for (String index : allIndexs) {
 //            if (index.startsWith("audit-linuxserver-soft")) {
-            //  String sql = restElasticUtils.genHiveSql(restElasticUtils.getIndexSql(index),index);
-             String sql = restElasticUtils.genFlinkSql(restElasticUtils.getIndexSql(index),index);
-             System.out.println(sql);
-        //    HashMap<String, String> tableCols = restElasticUtils.getIndexSql(index);
+            String sql = restElasticUtils.genDmlHiveSql(restElasticUtils.getIndexSql(index), index);
+
+            //   String sql = restElasticUtils.genFlinkSql(restElasticUtils.getIndexSql(index),index);
+            //  System.out.println(sql);
+            //    HashMap<String, String> tableCols = restElasticUtils.getIndexSql(index);
 //            String col = "";
 //            for (String table : tableCols.keySet()) {
 //                if (col.equalsIgnoreCase("")) {

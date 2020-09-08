@@ -69,9 +69,13 @@ ROW FORMAT SERDE 'org.apache.hadoop.hive.contrib.serde2.MultiDelimitSerDe' WITH 
 
 load data inpath 'hdfs://hadoop:9000/hive/warehouse/flink.db/system_safe_attack_apt/pt=202008081410' into table system_safe_attack_apt partition(pt='202008081410');
 
-add jar /root/app/hive-2.3.7/lib/hive-contrib-2.3.7.jar
 
 
+add jar /root/app/hive-2.3.7/lib/elasticsearch-hadoop-hive-6.8.3.jar;
+add jar /root/app/hive-2.3.7/lib/commons-httpclient-3.0.1.jar;
+add jar /root/app/hive-2.3.7/lib/hive-contrib-2.3.7.jar;
+
+Caused by: java.lang.ClassNotFoundException: Class org.elasticsearch.hadoop.hive.EsHiveInputFormat$EsHiveSplit not foun
 
 flink run -m yarn-cluster -yn 2 ./examples/batch/WordCount.jar
 ./bin/flink run -m yarn-cluster   n FlinkEtl.jar

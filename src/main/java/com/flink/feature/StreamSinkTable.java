@@ -20,11 +20,9 @@ public class StreamSinkTable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public void init() throws IOException {
-//        ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.SQL_FILE);
         InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(PropertiesConstants.SINK_SQL_FILE);
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];

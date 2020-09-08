@@ -1,8 +1,7 @@
-package com.flink.ml;
+package com.flink.feature;
 
 import com.flink.config.KafkaConfig;
 import com.flink.config.PropertiesConstants;
-import com.flink.feature.*;
 import com.flink.udf.getDateDiffSecond;
 import com.flink.udf.getDateFormat;
 import com.flink.udf.getDateMin;
@@ -18,7 +17,7 @@ import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
 
 import java.util.HashMap;
 
-public class FlinkSoSKafkaback {
+public class FlinkFeatureBak {
 
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment streamEnv = ExecutionEnvUtil.prepare();

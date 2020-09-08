@@ -1,0 +1,3 @@
+hive  -hiveconf stat_date=-2020-06-30  -f dml.sql
+hive -hiveconf stat_hour=2020063003  -f audit_linuxserver_file.sql
+alter table  audit_linuxserver_file drop partition(stat_hour='-2020063003');
