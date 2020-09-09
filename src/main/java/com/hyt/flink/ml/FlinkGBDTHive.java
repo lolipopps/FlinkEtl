@@ -1,15 +1,21 @@
 package com.hyt.flink.ml;
 
 
+import com.alibaba.alink.hive.operator.batch.HiveSourceBatchOp;
+import com.alibaba.alink.operator.batch.outlier.SosBatchOp;
 import com.alibaba.alink.pipeline.classification.GbdtClassifier;
+import com.hyt.flink.config.HiveConfig;
 import com.hyt.flink.ml.feature.AdultTrain;
+import com.hyt.flink.ml.feature.BaseData;
+import com.hyt.flink.ml.feature.TableToBaseDataUtils;
 import com.hyt.flink.ml.model.Model;
 import com.hyt.flink.ml.model.ModelGrid;
+import org.apache.flink.table.api.TableSchema;
 
 import java.util.HashMap;
 
 
-public class FlinkGBDT {
+public class FlinkGBDTHive {
 
     public static void main(String[] args) throws Exception {
 
@@ -19,19 +25,29 @@ public class FlinkGBDT {
         // 创建数据集
         AdultTrain adultTrain = new AdultTrain();
         // 算法模型
-        adultTrain.trainBatchData.firstN(10).print();
-        GbdtClassifier gbdt = new GbdtClassifier().setFeatureCols(adultTrain.getFeatures()).setCategoricalCols(adultTrain.getCategoricalCols())
-                .setLabelCol(adultTrain.getLabel())
+
+        HiveSourceBatchOp data = new HiveSourceBatchOp()
+                .setInputTableName("adult_train")
+//                .setPartitions("stat_hour=2020062900")
+                .setHiveVersion(HiveConfig.version)
+                .setHiveConfDir(HiveConfig.hiveConfDir)
+                .setDbName("ml");
+
+        BaseData base = TableToBaseDataUtils.toBaseData(data);
+
+
+        GbdtClassifier gbdt = new GbdtClassifier().setFeatureCols(base.getFeatures()).setCategoricalCols(base.categoricalCols)
+                .setLabelCol(base.getLabel())
                 .setNumTrees(10).setPredictionCol("prediction_result")
                 .setPredictionDetailCol("prediction_detail");
         model.setTrainer(gbdt);
-        model.setBaseData(adultTrain);
+        model.setBaseData(base);
         model.train();
 //        //网格调参
 //        ModelGrid modelGrid = new ModelGrid(model);
-//        Double[] LEARNING_RATE = new Double[]{0.01,0.05};
-//        Integer[] NUM_TREES = new Integer[]{3, 6, 9};
-//        Integer[] MAX_DEPTH = new Integer[]{3, 6, 9};
+//        Double[] LEARNING_RATE = new Double[]{0.01};
+//        Integer[] NUM_TREES = new Integer[]{3};
+//        Integer[] MAX_DEPTH = new Integer[]{9};
 //        HashMap<String, Object[]> paras = new HashMap<>();
 //        paras.put("LEARNING_RATE", LEARNING_RATE);
 //        paras.put("NUM_TREES", NUM_TREES);

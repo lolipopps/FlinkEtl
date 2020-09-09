@@ -14,12 +14,7 @@ public class AvazuSmall extends BaseData {
 
 
 
-    @Override
-    public void getStreamData() {
 
-    }
-
-    @Override
     public void getBatchData() {
         CsvSourceBatchOp trainBatchData = new CsvSourceBatchOp()
                 .setFilePath("src\\main\\resources\\avazu-small.csv")

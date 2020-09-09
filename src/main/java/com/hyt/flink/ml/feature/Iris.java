@@ -9,12 +9,8 @@ public class Iris extends BaseData {
         this.schemaStr = "sepal_length double, sepal_width double, petal_length double, petal_width double, category string";
     }
 
-    @Override
-    public void getStreamData() {
 
-    }
 
-    @Override
     public void getBatchData() {
         CsvSourceBatchOp sourceBatchOp = new CsvSourceBatchOp().setFilePath("src\\main\\resources\\iris.csv").setSchemaStr(schemaStr);
         // 向量化

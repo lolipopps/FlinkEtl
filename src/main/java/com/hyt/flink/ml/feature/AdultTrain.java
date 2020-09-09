@@ -23,7 +23,6 @@ public class AdultTrain extends BaseData {
     }
 
 
-    @Override
     public void getBatchData() {
         baseSourceBatchOp = new CsvSourceBatchOp().setFilePath("hdfs://hadoop:9000/ml/adult_train.csv").setSchemaStr(schemaStr);
         getTrainData(baseSourceBatchOp);
@@ -31,7 +30,7 @@ public class AdultTrain extends BaseData {
 
 
 
-    @Override
+
     public void getStreamData() {
         baseSourceStreamOp = new CsvSourceStreamOp().setFilePath("hdfs://hadoop:9000/ml/adult_train.csv").setSchemaStr(schemaStr);
         getTrainData(baseSourceStreamOp);
