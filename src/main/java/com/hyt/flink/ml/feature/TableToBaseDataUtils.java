@@ -15,7 +15,7 @@ public class TableToBaseDataUtils {
         ArrayList<String> categoricalCols = new ArrayList<>();
         ArrayList<String> numFeature = new ArrayList<>();
         StringBuilder schemaStr = new StringBuilder();
-        int numCols = 0;
+        StringBuilder colNames = new StringBuilder();
         for (TableColumn col : tableS.getTableColumns()) {
             if (col.getName().toLowerCase().equals("class") || col.getName().toLowerCase().equals("label")) {
                 baseData.setLabel(col.getName());
@@ -23,6 +23,7 @@ public class TableToBaseDataUtils {
             }
             columns.add(col.getName());
             schemaStr.append(col.getName() + " " + col.getType().toString().toLowerCase() + ",");
+            colNames.append(col.getName() + ",");
             if (col.getType().toString().toLowerCase().equals("string")) {
                 categoricalCols.add(col.getName());
             } else {
@@ -33,6 +34,7 @@ public class TableToBaseDataUtils {
         baseData.setSchemaStr(schemaStr.toString().substring(0, schemaStr.length() - 1));
         baseData.setCategoricalCols(categoricalCols.toArray(new String[categoricalCols.size()]));
         baseData.setFeatures(columns.toArray(new String[columns.size()]));
+        baseData.setColNames(colNames.toString().substring(0, colNames.length() - 1));
         baseData.getTrainData(data.select("*"));
         return baseData;
     }

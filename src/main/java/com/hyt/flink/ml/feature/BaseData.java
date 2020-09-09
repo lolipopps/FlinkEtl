@@ -21,6 +21,7 @@ import java.util.ArrayList;
 @Data
 public  class BaseData implements Serializable {
     public String schemaStr;
+    public String colNames;
     public String[] features;
     public String[] categoricalCols;
     public String[] numFeature;
