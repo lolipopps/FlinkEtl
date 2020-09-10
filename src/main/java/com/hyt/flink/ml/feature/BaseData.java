@@ -26,6 +26,8 @@ public  class BaseData implements Serializable {
     public String[] categoricalCols;
     public String[] numFeature;
 
+    public int type;
+
     public String label;
     public BatchOperator trainBatchData;
     public BatchOperator testBatchData;

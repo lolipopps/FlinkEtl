@@ -18,16 +18,30 @@ public class StreamTableFeature {
     public StreamTableFeature(StreamTableEnvironment env) {
         this.tableEnv = env;
         try {
-            init();
+            init(null);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
 
-    public void init() throws IOException {
-//        ExecutionEnvUtil.PARAMETER_TOOL.get(PropertiesConstants.SQL_FILE);
-        InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(PropertiesConstants.FEATURE_SQL_FILE);
+    public StreamTableFeature(StreamTableEnvironment env,String path) {
+        this.tableEnv = env;
+        try {
+            init(path);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void init(String path) throws IOException {
+        InputStream inputStream = null;
+        if(null != path){
+            inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(path);
+        }else {
+            inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream(PropertiesConstants.FEATURE_SQL_FILE);
+        }
         ByteArrayOutputStream result = new ByteArrayOutputStream();
         byte[] buffer = new byte[1024];
         int length;

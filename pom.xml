@@ -41,6 +41,19 @@
         </dependency>
 
 
+        <!-- https://mvnrepository.com/artifact/com.alibaba.alink/alink_connectors_kafka_base_flink-1.11 -->
+        <dependency>
+            <groupId>com.alibaba.alink</groupId>
+            <artifactId>alink_connectors_kafka_base_flink-1.11_2.11</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.11_${scala.bin.version}</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
+
 
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -71,6 +84,7 @@
             <artifactId>alink_core_flink-1.11_2.11</artifactId>
             <version>1.2.0</version>
         </dependency>
+
 <!--        <dependency>-->
 <!--            <groupId>com.alibaba.alink</groupId>-->
 <!--            <artifactId>alink_connectors_hive_flink-1.10_2.11</artifactId>-->

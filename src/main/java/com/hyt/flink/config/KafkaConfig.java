@@ -1,6 +1,7 @@
 package com.hyt.flink.config;
 
 
+import org.apache.flink.api.common.ExecutionConfig;
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 import org.apache.flink.api.java.utils.ParameterTool;
 import org.apache.flink.streaming.api.datastream.DataStreamSource;
@@ -77,6 +78,8 @@ public class KafkaConfig {
         }
         return null;
     }
+
+
 
     public static DataStreamSource<String> buildSource(StreamExecutionEnvironment env,String topic) {
         ParameterTool parameter = (ParameterTool) env.getConfig().getGlobalJobParameters();

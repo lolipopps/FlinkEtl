@@ -52,6 +52,8 @@ public class FlinkSoS {
         SosBatchOp sos = new SosBatchOp().setVectorCol("features").setPredictionCol("outlier_score").setPerplexity(3.0);
         SosBatchOp out = sos.linkFrom(res);
         AppendIdBatchOp indexDataOut = new AppendIdBatchOp().setIdCol("indexs").linkFrom(out);
+        indexDataOut.firstN(10).print();
+        indexData.firstN(10).print();
         BatchOperator topk = indexDataOut.orderBy("outlier_score", 100, false);
         Table topkTable = topk.getOutputTable();
         Table indexDataTable = indexData.getOutputTable();

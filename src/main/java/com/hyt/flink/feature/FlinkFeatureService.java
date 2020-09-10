@@ -16,14 +16,16 @@ public class FlinkFeatureService extends RichMapFunction<String, BaseSource> {
         source = source.toLowerCase();
         JSONObject jsonObject = JSONObject.parseObject(source);
         Object eventTimeTemp = jsonObject.get("event_time");
-        String tt = String.valueOf(eventTimeTemp);
         Long eventTime = 0L;
-        if(NumberUtils.isDigits(tt)) {
-            eventTime = jsonObject.getLong("event_time");
-        }else{
-            tt = tt.toLowerCase().substring(0,19).replace("t"," ");
-            DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            eventTime = df2.parse(tt).getTime();
+        if(null != eventTimeTemp) {
+            String tt = String.valueOf(eventTimeTemp);
+            if (NumberUtils.isDigits(tt)) {
+                eventTime = jsonObject.getLong("event_time");
+            } else {
+                tt = tt.toLowerCase().substring(0, 19).replace("t", " ");
+                DateFormat df2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                eventTime = df2.parse(tt).getTime();
+            }
         }
         String logType = jsonObject.getString("log_type");
         BaseSource baseSource = new BaseSource();

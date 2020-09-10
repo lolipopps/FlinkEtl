@@ -1,10 +1,11 @@
 package com.hyt.flink.ml.feature;
+
 import com.alibaba.alink.operator.batch.source.CsvSourceBatchOp;
 import com.alibaba.alink.operator.stream.source.CsvSourceStreamOp;
 
 public class AdultTrain extends BaseData {
     public AdultTrain() {
-         this.schemaStr   = "age bigint, workclass string, fnlwgt bigint, education string, " +
+        this.schemaStr = "age bigint, workclass string, fnlwgt bigint, education string, " +
                 "education_num bigint, marital_status string, occupation string, " +
                 "relationship string, race string, sex string, capital_gain bigint, " +
                 "capital_loss bigint, hours_per_week bigint, native_country string, label string";
@@ -19,7 +20,11 @@ public class AdultTrain extends BaseData {
                 "workclass", "education", "marital_status", "occupation"};
 
         this.label = "label";
+
         getBatchData();
+
+        getStreamData();
+
     }
 
 
@@ -27,8 +32,6 @@ public class AdultTrain extends BaseData {
         baseSourceBatchOp = new CsvSourceBatchOp().setFilePath("hdfs://hadoop:9000/ml/adult_train.csv").setSchemaStr(schemaStr);
         getTrainData(baseSourceBatchOp);
     }
-
-
 
 
     public void getStreamData() {

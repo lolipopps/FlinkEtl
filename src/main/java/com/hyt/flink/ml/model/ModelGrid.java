@@ -9,6 +9,7 @@ import com.alibaba.alink.operator.common.evaluation.RegressionMetrics;
 import com.alibaba.alink.pipeline.tuning.*;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.flink.ml.api.misc.param.Params;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,6 +27,8 @@ public class ModelGrid {
     public Model model;
 
     public GridSearchCV gridSearchCV;
+
+    GridSearchCVModel modl;
 
     public ModelGrid(Model model) {
         this.model = model;
@@ -50,7 +53,7 @@ public class ModelGrid {
                 .setTuningBinaryClassMetric("AUC");
         gridSearchCV = new GridSearchCV().setEstimator(model.getTrainer())
                 .setTuningEvaluator(binaryClassificationTuningEvaluator)
-                .setParamGrid(paramGrid).setNumFolds(5);
+                .setParamGrid(paramGrid).setNumFolds(2);
 
     }
 
@@ -58,7 +61,7 @@ public class ModelGrid {
     public void getRegressionGridSearchCV() {
         RegressionMetrics metrics = new EvalRegressionBatchOp()
                 .setLabelCol(model.getBaseData().getLabel()).setPredictionCol("prediction").collectMetrics();
-        gridSearchCV = new GridSearchCV().setEstimator(model.getTrainer()).setParamGrid(paramGrid).setNumFolds(2);
+        gridSearchCV = new GridSearchCV().setEstimator(model.getTrainer()).setParamGrid(paramGrid).setNumFolds(1);
 
 
     }
@@ -75,12 +78,17 @@ public class ModelGrid {
         }
     }
 
+
+    public void saveModel() {
+        modl.getModelData().select("*").execute().print();
+    }
+
+
     public void printClassMetrics(MultiClassMetrics metrics) {
         log.info("LogLoss: {}", metrics.getLogLoss());
         log.info("Macro Precision: {}", metrics.getMacroPrecision());
         log.info("Micro Recall: {}", metrics.getMicroRecall());
         log.info("Weighted Sensitivity: {}", metrics.getWeightedSensitivity());
-
     }
 
     public void printRegressionMetrics(RegressionMetrics metrics) {
@@ -91,6 +99,7 @@ public class ModelGrid {
         log.info("R2: {}", metrics.getR2());
     }
 
+
     public void train(int type) throws Exception {
         if (type == 1) {
             getBinClassGridSearchCV();
@@ -99,12 +108,15 @@ public class ModelGrid {
         } else {
             getRegressionGridSearchCV();
         }
-        GridSearchCVModel modl = gridSearchCV.fit(model.baseData.getTrainBatchData());
-
+        modl = gridSearchCV.fit(model.baseData.getTrainBatchData().sample(0.1));
         BatchOperator inOp = modl.transform(model.baseData.getTestBatchData());
 
         BinaryClassMetrics metrics = new EvalBinaryClassBatchOp().setLabelCol("label").setPredictionDetailCol("prediction_detail" +
                 "").linkFrom(inOp).collectMetrics();
+
+        System.out.println(modl.getParams().toJson());
+        System.out.println(gridSearchCV.getParams().toJson());
+
         System.out.println("AUC: " + metrics.getAuc());
         System.out.println("KS: " + metrics.getKs());
         System.out.println("PRC: " + metrics.getPrc());

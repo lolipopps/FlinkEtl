@@ -11,7 +11,7 @@ import com.hyt.flink.ml.feature.TableToBaseDataUtils;
 import com.hyt.flink.util.ExecutionEnvUtil;
 import org.apache.flink.api.java.ExecutionEnvironment;
 
-public class FlinkKmans {
+public class FlinkKmeans {
 
     public static void main(String[] args) throws Exception {
         ExecutionEnvironment batchEnv = ExecutionEnvUtil.prepareBatch();

@@ -1,6 +1,7 @@
 package com.hyt.flink.ml;
 
 
+import com.alibaba.alink.operator.batch.source.BaseSourceBatchOp;
 import com.alibaba.alink.pipeline.classification.GbdtClassifier;
 import com.hyt.flink.ml.feature.AdultTrain;
 import com.hyt.flink.ml.model.Model;
@@ -24,9 +25,12 @@ public class FlinkGBDT {
                 .setLabelCol(adultTrain.getLabel())
                 .setNumTrees(10).setPredictionCol("prediction_result")
                 .setPredictionDetailCol("prediction_detail");
+
         model.setTrainer(gbdt);
         model.setBaseData(adultTrain);
         model.train();
+        model.predict(adultTrain.getTestBatchData());
+
 //        //网格调参
 //        ModelGrid modelGrid = new ModelGrid(model);
 //        Double[] LEARNING_RATE = new Double[]{0.01,0.05};
