@@ -1,31 +1,18 @@
 package com.hyt.flink.ml;
 
-
-import com.alibaba.alink.common.MLEnvironment;
 import com.alibaba.alink.common.MLEnvironmentFactory;
-import com.alibaba.alink.kafka.Kafka011SourceStreamOp;
 import com.alibaba.alink.kafka.MyKafka011SourceStreamOp;
-import com.alibaba.alink.operator.batch.BatchOperator;
 import com.alibaba.alink.operator.stream.StreamOperator;
 import com.alibaba.alink.operator.stream.source.TableSourceStreamOp;
-import com.hyt.flink.config.KafkaConfig;
 import com.hyt.flink.config.PropertiesConstants;
 import com.hyt.flink.feature.*;
-import com.hyt.flink.ml.feature.BaseData;
 import com.hyt.flink.ml.model.Model;
 import com.hyt.flink.udf.*;
 import com.hyt.flink.util.ExecutionEnvUtil;
-import org.apache.flink.api.common.restartstrategy.RestartStrategies;
-import org.apache.flink.api.java.ExecutionEnvironment;
-import org.apache.flink.streaming.api.TimeCharacteristic;
-import org.apache.flink.streaming.api.datastream.DataStream;
-import org.apache.flink.streaming.api.datastream.SingleOutputStreamOperator;
+import com.hyt.flink.util.SqlUtil;
 import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.table.api.Table;
-import org.apache.flink.table.api.TableResult;
 import org.apache.flink.table.api.bridge.java.StreamTableEnvironment;
-
-import static com.hyt.flink.ml.feature.TableToBaseDataUtils.toBaseData;
 
 
 public class FlinkGBDTStreamAudit {
@@ -53,6 +40,8 @@ public class FlinkGBDTStreamAudit {
         Table resTable = tableEnv.sqlQuery("select * from audit_train");
         TableSourceStreamOp tableSourceStreamOp = new TableSourceStreamOp(resTable);
         Model model = new Model();
-        model.predict(tableSourceStreamOp);
+        StreamOperator<?> res = model.predict(tableSourceStreamOp);
+        SqlUtil.execuPathSql(tableEnv,"");
+        env.execute("flink learning connectors es6");
     }
 }

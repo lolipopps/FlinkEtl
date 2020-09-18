@@ -4,6 +4,7 @@ package com.hyt.flink.ml;
 import com.alibaba.alink.operator.batch.source.BaseSourceBatchOp;
 import com.alibaba.alink.pipeline.classification.GbdtClassifier;
 import com.hyt.flink.ml.feature.AdultTrain;
+import com.hyt.flink.ml.feature.Commic;
 import com.hyt.flink.ml.model.Model;
 import com.hyt.flink.ml.model.ModelGrid;
 
@@ -18,7 +19,7 @@ public class FlinkGBDT {
         // 新建模型
         Model model = new Model();
         // 创建数据集
-        AdultTrain adultTrain = new AdultTrain();
+        Commic adultTrain = new Commic();
         // 算法模型
         adultTrain.trainBatchData.firstN(10).print();
         GbdtClassifier gbdt = new GbdtClassifier().setFeatureCols(adultTrain.getFeatures()).setCategoricalCols(adultTrain.getCategoricalCols())

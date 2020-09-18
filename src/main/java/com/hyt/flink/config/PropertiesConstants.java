@@ -5,8 +5,15 @@ public class PropertiesConstants {
     public static final String KAFKA_GROUP_ID = "kafka.group.id";
     public static final String DEFAULT_KAFKA_GROUP_ID = "kafka.group.id";
     public static final String SOURCE_TOPIC = "kafka.source.topic";
-    public static final String SINK_TOPIC = "kafka.sink.topic";
     public static final String CONSUMER_FROM_TIME = "consumer.from.time";
+
+
+    public static final String ELASTICSEARCH_HOSTS = "kafka.sink.topic";
+    public static final String ELASTICSEARCH_BULK_FLUSH_MAX_ACTIONS = "consumer.from.time";
+    public static final String ES_SECURITY_ENABLE = "es.security.enable";
+    public static final String ES_SECURITY_USERNAME = "es.security.username";
+    public static final String ES_SECURITY_PASSWORD = "es.security.password";
+
     public static final String STREAM_SINK_PARALLELISM = "stream.sink.parallelism";
     public static final String STREAM_PARALLELISM = "stream.parallelism";
     public static final String STREAM_CHECKPOINT_ENABLE = "stream.checkpoint.enable";

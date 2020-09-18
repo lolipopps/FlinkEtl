@@ -42,7 +42,6 @@ public class FlinkGBDTHive {
                 .setLabelCol(base.getLabel())
                 .setNumTrees(10).setPredictionCol("prediction_result")
                 .setPredictionDetailCol("prediction_detail");
-
         model.setTrainer(gbdt);
         model.setBaseData(base);
         model.train();

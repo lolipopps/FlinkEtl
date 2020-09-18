@@ -14,8 +14,7 @@
         <hadoop.version>2.9.2</hadoop.version>
         <hive.version>2.3.4</hive.version>
         <scala.bin.version>2.11</scala.bin.version>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+
         <elastic.versioon>6.8.3</elastic.versioon>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <alink.mvn.apache-httpclient.version>4.5.3</alink.mvn.apache-httpclient.version>
@@ -53,7 +52,22 @@
             <artifactId>flink-connector-kafka-0.11_${scala.bin.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-elasticsearch6_2.11</artifactId>
+            <version>1.10.0</version>
+        </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-client</artifactId>
+            <version>6.8.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.elasticsearch.client</groupId>
+            <artifactId>elasticsearch-rest-high-level-client</artifactId>
+            <version>6.8.3</version>
+        </dependency>
 
         <dependency>
             <groupId>org.apache.flink</groupId>
@@ -61,17 +75,7 @@
             <version>${flink.version}</version>
         </dependency>
 
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-high-level-client</artifactId>
-            <version>${elastic.versioon}</version>
-        </dependency>
 
-        <dependency>
-            <groupId>org.elasticsearch.client</groupId>
-            <artifactId>elasticsearch-rest-client</artifactId>
-            <version>${elastic.versioon}</version>
-        </dependency>
 
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -85,20 +89,12 @@
             <version>1.2.0</version>
         </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.alink</groupId>-->
-<!--            <artifactId>alink_connectors_hive_flink-1.10_2.11</artifactId>-->
-<!--            <version>1.1.2</version>-->
-<!--        </dependency>-->
-
-        <!-- oss file system dependency -->
         <dependency>
             <groupId>com.alibaba.alink</groupId>
             <artifactId>shaded_flink_oss_fs_hadoop</artifactId>
             <version>1.10.0-0.2</version>
-
         </dependency>
-        <!-- hadoop file system dependency -->
+
         <dependency>
             <groupId>org.apache.flink</groupId>
             <artifactId>flink-shaded-hadoop-2</artifactId>
@@ -186,6 +182,10 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.3</version>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
             </plugin>
 
             <plugin>
