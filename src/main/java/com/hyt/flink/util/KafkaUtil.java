@@ -63,7 +63,7 @@ public class KafkaUtil {
 //                    }
                     ProducerRecord record = new ProducerRecord<String, String>(topic, null, null, data);
                     producer.send(record);
-                    log.info("发送数据: " + record.toString());
+                    // log.info("发送数据: " + record.toString());
                     Thread.sleep(1000);
                 }
             }

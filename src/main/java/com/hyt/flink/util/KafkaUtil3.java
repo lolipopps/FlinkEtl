@@ -27,14 +27,14 @@ import java.util.Random;
 public class KafkaUtil3 {
     public static void writeToKafka() throws InterruptedException, IOException {
         Properties props = null;
-        String topic = "flinkEtl";
+        String[] topics = {"streamA","streamB"};
         props = KafkaConfig.buildKafkaProps();
         props.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         props.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer");
         KafkaProducer producer = new KafkaProducer<String, String>(props);
         Random ra = new Random();
         while (true) {
-            InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream("./adult_test.csv");
+            InputStream inputStream = ExecutionEnvUtil.class.getClassLoader().getResourceAsStream("./test.csv");
             ByteArrayOutputStream result = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int length;
@@ -44,10 +44,11 @@ public class KafkaUtil3 {
 
             String[] ress = result.toString("UTF-8").split("\n");
             for (String re : ress) {
-                    String data = re;
-                    ProducerRecord record = new ProducerRecord<String, String>(topic, null, null, data);
+                    String data = re+"," + DateUtil.getCurrentTime();
+                 int num = ra.nextInt(2);
+                    ProducerRecord record = new ProducerRecord<String, String>(topics[num], null, null, data);
                     producer.send(record);
-                    log.info("发送数据: " + record.toString());
+                    log.info(topics[num] + " 发送数据: " + record.toString());
                     Thread.sleep(100);
 
             }

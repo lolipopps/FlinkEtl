@@ -9,6 +9,7 @@ import org.joda.time.format.DateTimeFormatter;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
 
@@ -28,6 +29,11 @@ public class DateUtil {
     public static String format(Date date, DateTimeFormatter dateFormatter) {
         DateTime dateTime = new DateTime(date);
         return dateTime.toString(dateFormatter);
+    }
+
+    public static String getCurrentTime() {
+        Date dateTime = new Date();
+        return  String.valueOf(dateTime.getTime() - new Random().nextInt(10) * 1000);
     }
 
     public static String format(Date date, DateTimeZone timeZone, DateTimeFormatter dateFormatter) {
