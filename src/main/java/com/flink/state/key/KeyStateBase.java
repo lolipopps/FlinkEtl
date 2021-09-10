@@ -11,21 +11,13 @@ import org.slf4j.LoggerFactory;
 
 
 /**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
+
  * @date: 2020/10/15 18:33
  */
 public class KeyStateBase {
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public static KeyedStream<Tuple2<Integer, Integer>, Tuple> before(StreamExecutionEnvironment env) {
@@ -39,11 +31,7 @@ public class KeyStateBase {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public static class StateSource implements SourceFunction<Tuple2<Integer, Integer>> {
@@ -55,11 +43,7 @@ public class KeyStateBase {
         private int counter = 0;
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -74,11 +58,7 @@ public class KeyStateBase {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         @Override

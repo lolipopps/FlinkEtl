@@ -21,20 +21,19 @@ public class DistributedCacheTemplate {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        String cacheUrl = "/Users/yth/code/java/FlinkEtl/src/main/resources/aduit.csv";
+        String cacheUrl = "./src/main/resources/aduit.csv";
 //        env.registerCachedFile("file:///home/intsmaze/flink/cache/local.txt", "localFile");
         env.registerCachedFile(cacheUrl, "localFile");
 
         DataStream<Long> input = env.generateSequence(1, 20);
 
-        input.map(new MyMapper()).print();
+        input.map(new MyMapper()).setParallelism(5).print();
         env.execute();
     }
 
     public static class MyMapper extends RichMapFunction<Long, String> {
 
         private String cacheStr;
-
 
         @Override
         public void open(Configuration config) {
@@ -47,7 +46,7 @@ public class DistributedCacheTemplate {
 
         @Override
         public String map(Long value) throws Exception {
-            Thread.sleep(60000);
+            Thread.sleep(600);
             return StringUtils.join(value, "---", cacheStr);
         }
 

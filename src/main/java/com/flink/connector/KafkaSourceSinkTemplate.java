@@ -17,34 +17,27 @@ public class KafkaSourceSinkTemplate {
         env.setParallelism(2);
 
         Properties conProperties = new Properties();
-        conProperties.setProperty("bootstrap.servers", "localhost:9092");
+        conProperties.setProperty("bootstrap.servers", "hyt2:9092");
         conProperties.setProperty("group.id", "intsmaze");
         FlinkKafkaConsumer011<String> kafkaConsumer = new FlinkKafkaConsumer011<>(
-                "intsmaze-pojo", new SimpleStringSchema(), conProperties);
+                "flink_orders3", new SimpleStringSchema(), conProperties);
 
         DataStream<String> streamSource = env.addSource(kafkaConsumer);
 
         DataStream<String> mapStream = streamSource.map(new MapFunction<String, String>() {
             @Override
             public String map(String value) throws Exception {
-                int number = Integer.valueOf(value) + 1;
+
                 Thread.sleep(100);
-                System.out.println("number：" + number);
-                return String.valueOf(number);
+                System.out.println("number：" + value);
+                return String.valueOf(value);
             }
         });
 
 
-        Properties proProperties = new Properties();
-        proProperties.put("bootstrap.servers", "192.168.19.201:9092");
-        FlinkKafkaProducer011<String> kafkaProducer = new FlinkKafkaProducer011(
-                "intsmaze-pojo", new SimpleStringSchema(), proProperties);
 
-        mapStream.addSink(kafkaProducer);
+        mapStream.print();
 
-        DataStream<String> testSource = env.fromElements("1");
-
-        testSource.addSink(kafkaProducer);
 
         env.execute("KafkaSourceSinkTemplate");
     }

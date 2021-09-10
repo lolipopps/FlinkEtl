@@ -16,11 +16,7 @@ import org.junit.Test;
 import java.util.*;
 
 /**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
+
  * @date: 2020/10/15 18:33
  */
 public class GroupReduceTemplate {
@@ -30,11 +26,7 @@ public class GroupReduceTemplate {
     DataSet<Tuple2<String, Integer>> dataSet;
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Before
@@ -53,11 +45,7 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @After
@@ -66,11 +54,7 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Test
@@ -78,11 +62,7 @@ public class GroupReduceTemplate {
         DataSet<Tuple2<Integer, String>> result = dataSet.groupBy("f0")
                 .reduceGroup(new GroupReduceFunction<Tuple2<String, Integer>, Tuple2<Integer, String>>() {
                     /**
-                     * github地址: https://github.com/intsmaze
-                     * 博客地址：https://www.cnblogs.com/intsmaze/
-                     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-                     *
-                     * @auther: intsmaze(刘洋)
+
                      * @date: 2020/10/15 18:33
                      */
                     @Override
@@ -106,11 +86,7 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Test
@@ -128,20 +104,12 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public class CustomSortedGroups implements GroupReduceFunction<Tuple2<String, Integer>, Tuple2<String, String>> {
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -160,11 +128,7 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Test
@@ -176,22 +140,14 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public class CustomCombinableGroupReducer implements
             GroupReduceFunction<Tuple2<String, Integer>, Tuple2<String, Integer>>,
             GroupCombineFunction<Tuple2<String, Integer>, Tuple2<String, Integer>> {
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -201,11 +157,7 @@ public class GroupReduceTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -215,11 +167,7 @@ public class GroupReduceTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
+
          * @date: 2020/10/15 18:33
          */
         private void dealCompute(Iterable<Tuple2<String, Integer>> values, Collector<Tuple2<String, Integer>> out, String flag) {
@@ -240,11 +188,7 @@ public class GroupReduceTemplate {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Test

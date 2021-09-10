@@ -16,11 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
+
  * @date: 2020/10/15 18:33
  */
 public class ReducingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>> {
@@ -31,11 +27,7 @@ public class ReducingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, In
     public transient ReducingState<Tuple2<Integer, Integer>> reducingState;
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Override
@@ -59,11 +51,7 @@ public class ReducingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, In
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Override
@@ -73,11 +61,7 @@ public class ReducingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, In
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public static void main(String[] args) throws Exception {

@@ -7,11 +7,7 @@ import org.apache.flink.streaming.runtime.operators.windowing.TimestampedValue;
 import java.util.Iterator;
 
 /**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
+
  * @date: 2020/10/15 18:33
  */
 public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
@@ -21,11 +17,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     private final boolean doEvictAfter;
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     private CountEvictorDebug(long count, boolean doEvictAfter) {
@@ -34,11 +26,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     private CountEvictorDebug(long count) {
@@ -47,11 +35,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Override
@@ -62,11 +46,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     @Override
@@ -77,11 +57,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     private void evict(Iterable<TimestampedValue<Object>> elements, int size, EvictorContext ctx) {
@@ -102,11 +78,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public static <W extends Window> CountEvictorDebug<W> of(long maxCount) {
@@ -114,11 +86,7 @@ public class CountEvictorDebug<W extends Window> implements Evictor<Object, W> {
     }
 
     /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
+
      * @date: 2020/10/15 18:33
      */
     public static <W extends Window> CountEvictorDebug<W> of(long maxCount, boolean doEvictAfter) {
