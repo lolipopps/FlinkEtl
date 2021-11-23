@@ -16,14 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
         ListCheckpointed<Long> {
 
@@ -35,42 +28,21 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
         this.bufferedElements = new LinkedList<>();
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public List<Long> snapshotState(long checkpointId, long timestamp) {
         LOG.info("{}: 当前快照编号:{} ,数据 :{}", Thread.currentThread().getName(), checkpointId, bufferedElements);
         return bufferedElements;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void restoreState(List<Long> state) {
         bufferedElements = state;
         LOG.info("恢复数据 {} 当前 快照数据 :{{}", Thread.currentThread().getName(), state);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public String map(Long value) {
         int size = bufferedElements.size();
@@ -91,14 +63,7 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
                 " length is :" + bufferedElements.size();
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.enableCheckpointing(10000);
@@ -121,14 +86,7 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
     }
 
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static class CustomSource extends RichSourceFunction<Long> {
 
         public Logger LOG = LoggerFactory.getLogger(CheckpointedMapTemplate.CustomSource.class);
@@ -136,11 +94,9 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
         private static final long serialVersionUID = 1L;
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -149,11 +105,9 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -168,11 +122,9 @@ public class ListCheckpointedMapTemplate implements MapFunction<Long, String>,
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override

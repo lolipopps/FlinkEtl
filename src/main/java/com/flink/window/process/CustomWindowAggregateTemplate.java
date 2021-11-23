@@ -9,24 +9,10 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 import org.apache.flink.streaming.api.windowing.assigners.TumblingProcessingTimeWindows;
 import org.apache.flink.streaming.api.windowing.time.Time;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class CustomWindowAggregateTemplate {
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -39,37 +25,16 @@ public class CustomWindowAggregateTemplate {
     }
 }
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 class Average implements AggregateFunction<Tuple3<String, Integer, String>, AverageAccumulator, AverageAccumulator> {
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public AverageAccumulator createAccumulator() {
         return new AverageAccumulator();
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public AverageAccumulator merge(AverageAccumulator a, AverageAccumulator b) {
         a.setCount(a.getCount() + b.getCount());
@@ -77,14 +42,7 @@ class Average implements AggregateFunction<Tuple3<String, Integer, String>, Aver
         return a;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public AverageAccumulator add(Tuple3<String, Integer, String> value, AverageAccumulator acc) {
         acc.setWord(value.f0);
@@ -93,28 +51,14 @@ class Average implements AggregateFunction<Tuple3<String, Integer, String>, Aver
         return acc;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public AverageAccumulator getResult(AverageAccumulator acc) {
         return acc;
     }
 }
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 class AverageAccumulator {
 
     private String word;

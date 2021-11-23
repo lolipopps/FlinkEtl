@@ -1,5 +1,4 @@
 package com.flink.state.key;
-
 import org.apache.flink.api.java.tuple.Tuple;
 import org.apache.flink.api.java.tuple.Tuple2;
 import org.apache.flink.streaming.api.datastream.DataStream;
@@ -10,24 +9,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class KeyStateBase {
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static KeyedStream<Tuple2<Integer, Integer>, Tuple> before(StreamExecutionEnvironment env) {
         env.setParallelism(2);
 
@@ -38,14 +23,7 @@ public class KeyStateBase {
         return keyedStream;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static class StateSource implements SourceFunction<Tuple2<Integer, Integer>> {
 
         public Logger LOG = LoggerFactory.getLogger(StateSource.class);
@@ -54,14 +32,6 @@ public class KeyStateBase {
 
         private int counter = 0;
 
-        /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
-         * @date: 2020/10/15 18:33
-         */
         @Override
         public void run(SourceContext<Tuple2<Integer, Integer>> ctx) throws Exception {
             while (true) {
@@ -73,14 +43,7 @@ public class KeyStateBase {
             }
         }
 
-        /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-         *
-         * @auther: intsmaze(刘洋)
-         * @date: 2020/10/15 18:33
-         */
+
         @Override
         public void cancel() {
         }

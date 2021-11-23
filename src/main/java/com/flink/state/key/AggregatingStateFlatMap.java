@@ -14,14 +14,7 @@ import org.apache.flink.util.Collector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class AggregatingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>> {
 
     public static Logger LOG = LoggerFactory.getLogger(AggregatingStateFlatMap.class);
@@ -29,54 +22,26 @@ public class AggregatingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer,
     public transient AggregatingState<Tuple2<Integer, Integer>, String> aggregatingState;
 
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void open(Configuration config) {
         AggregatingStateDescriptor descriptor = new AggregatingStateDescriptor("AggregatingState",
                 new AggregateFunction<Tuple2<Integer, Integer>, AverageAccumulator, Double>() {
 
-                    /**
-                     * github地址: https://github.com/intsmaze
-                     * 博客地址：https://www.cnblogs.com/intsmaze/
-                     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-                     *
-                     * @auther: intsmaze(刘洋)
-                     * @date: 2020/10/15 18:33
-                     */
+
                     @Override
                     public AverageAccumulator createAccumulator() {
                         return new AverageAccumulator();
                     }
 
-                    /**
-                     * github地址: https://github.com/intsmaze
-                     * 博客地址：https://www.cnblogs.com/intsmaze/
-                     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-                     *
-                     * @auther: intsmaze(刘洋)
-                     * @date: 2020/10/15 18:33
-                     */
+
                     @Override
                     public AverageAccumulator add(Tuple2<Integer, Integer> value, AverageAccumulator accumulator) {
                         accumulator.add(value.f1);
                         return accumulator;
                     }
 
-                    /**
-                     * github地址: https://github.com/intsmaze
-                     * 博客地址：https://www.cnblogs.com/intsmaze/
-                     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-                     *
-                     * @auther: intsmaze(刘洋)
-                     * @date: 2020/10/15 18:33
-                     */
+
                     @Override
                     public Double getResult(AverageAccumulator accumulator) {
                         return accumulator.getLocalValue();
@@ -94,27 +59,13 @@ public class AggregatingStateFlatMap extends RichFlatMapFunction<Tuple2<Integer,
         aggregatingState = getRuntimeContext().getAggregatingState(descriptor);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void flatMap(Tuple2<Integer, Integer> input, Collector<Tuple2<Integer, Integer>> out) throws Exception {
         aggregatingState.add(input);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

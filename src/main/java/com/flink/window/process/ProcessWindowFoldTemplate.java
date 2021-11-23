@@ -12,24 +12,10 @@ import org.apache.flink.streaming.api.windowing.time.Time;
 import org.apache.flink.streaming.api.windowing.windows.TimeWindow;
 import org.apache.flink.util.Collector;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 @Deprecated
 public class ProcessWindowFoldTemplate {
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
@@ -57,24 +43,15 @@ public class ProcessWindowFoldTemplate {
         env.execute("TumblingWindows");
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static class UserDefinedProcessWindow
             extends ProcessWindowFunction<Tuple3<String, Integer, String>, Tuple3<String, Integer, String>, String, TimeWindow> {
 
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override

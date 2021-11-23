@@ -16,28 +16,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Iterator;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class ListStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integer>, String> {
 
     public static Logger LOG = LoggerFactory.getLogger(ListStateFlatMap.class);
 
     public transient ListState<Tuple2<Integer, Integer>> listState;
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void open(Configuration config) {
         LOG.info("{},{}", Thread.currentThread().getName(), "恢复或初始化状态");
@@ -49,14 +35,7 @@ public class ListStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Intege
         listState = getRuntimeContext().getListState(descriptor);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void flatMap(Tuple2<Integer, Integer> input, Collector<String> out) throws Exception {
         listState.add(input);
@@ -73,14 +52,7 @@ public class ListStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Intege
         }
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

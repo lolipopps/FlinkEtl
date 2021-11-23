@@ -50,14 +50,7 @@ public class StateSourceTemplate extends RichParallelSourceFunction<Long>
         this.isMakeError = isMakeError;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void run(SourceContext<Long> ctx) throws InterruptedException {
         final Object lock = ctx.getCheckpointLock();
@@ -79,40 +72,19 @@ public class StateSourceTemplate extends RichParallelSourceFunction<Long>
         }
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void cancel() {
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void snapshotState(FunctionSnapshotContext context) throws Exception {
         this.checkpointedCount.clear();
         this.checkpointedCount.add(offset);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void initializeState(FunctionInitializationContext context) throws Exception {
         this.checkpointedCount = context

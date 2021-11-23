@@ -16,14 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class ValueStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integer>, Tuple2<Integer, Integer>> {
 
     public static Logger LOG = LoggerFactory.getLogger(ValueStateFlatMap.class);
@@ -31,14 +24,7 @@ public class ValueStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integ
 
     public transient ValueState<Tuple2<Integer, Integer>> valueState;
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void open(Configuration config) {
         LOG.info("{},{}", Thread.currentThread().getName(), "恢复或初始化状态");
@@ -50,14 +36,7 @@ public class ValueStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integ
         valueState = getRuntimeContext().getState(descriptor);
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     @Override
     public void flatMap(Tuple2<Integer, Integer> input, Collector<Tuple2<Integer, Integer>> out) throws Exception {
         Tuple2<Integer, Integer> currentSum = valueState.value();
@@ -77,14 +56,7 @@ public class ValueStateFlatMap extends RichFlatMapFunction<Tuple2<Integer, Integ
         }
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();

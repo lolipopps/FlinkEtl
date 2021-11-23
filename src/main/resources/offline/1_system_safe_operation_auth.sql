@@ -1,4 +1,6 @@
- ADD JAR /root/app/hive-2.3.7/lib/elasticsearch-hadoop-hive-6.8.3.jar; ADD JAR /root/app/hive-2.3.7/lib/commons-httpclient-3.0.1.jar; ADD JAR /root/app/hive-2.3.7/lib/hive-contrib-2.3.7.jar;
+ ADD JAR /root/app/hive-2.3.7/lib/elasticsearch-hadoop-hive-6.8.3.jar; 
+ ADD JAR /root/app/hive-2.3.7/lib/commons-httpclient-3.0.1.jar; 
+ ADD JAR /root/app/hive-2.3.7/lib/hive-contrib-2.3.7.jar;
 
 INSERT OVERWRITE TABLE ods.system_safe_operation_auth partition(stat_hour='2020061701')
 SELECT  manufacturers_facility 

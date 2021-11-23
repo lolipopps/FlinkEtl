@@ -47,7 +47,7 @@ public class DistributedCacheTemplate {
 
         @Override
         public String map(Long value) throws Exception {
-            Thread.sleep(60000);
+            Thread.sleep(6000);
             return StringUtils.join(value, "---", cacheStr);
         }
 

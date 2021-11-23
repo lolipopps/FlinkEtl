@@ -4,24 +4,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class PrepareData {
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static List<ClickBean> getClicksData() throws ParseException {
         List<ClickBean> clickList = new ArrayList();
         clickList.add(new ClickBean(1, "张三", "./intsmaze", "2019-07-28 12:00:00"));
@@ -32,14 +18,7 @@ public class PrepareData {
         return clickList;
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static List<Trade> getTradeData() throws ParseException {
         List<Trade> tradeList = new ArrayList();
         tradeList.add(new Trade("张三", 38, "安卓手机", "2019-07-28 12:20:00"));

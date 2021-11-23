@@ -6,14 +6,7 @@ import com.flink.window.util.TimeStampUtils;
 import java.sql.Timestamp;
 import java.text.ParseException;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class Trade {
 
     private String name;
@@ -27,14 +20,7 @@ public class Trade {
     public Trade() {
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public Trade(String name, long amount, String client, String tradeTime) throws ParseException {
         this.name = name;
         this.amount = amount;

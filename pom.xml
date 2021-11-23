@@ -14,7 +14,6 @@
         <hadoop.version>2.9.2</hadoop.version>
         <hive.version>2.3.4</hive.version>
         <scala.bin.version>2.11</scala.bin.version>
-
         <elastic.versioon>6.8.3</elastic.versioon>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <alink.mvn.apache-httpclient.version>4.5.3</alink.mvn.apache-httpclient.version>
@@ -70,7 +69,6 @@
             <artifactId>flink-table-api-java-bridge_${scala.bin.version}</artifactId>
             <version>${flink.version}</version>
         </dependency>
-
 
 
         <dependency>
@@ -182,7 +180,26 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.34</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-core</artifactId>
+            <version>1.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-csv</artifactId>
+            <version>1.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-avro</artifactId>
+            <version>1.11.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-table-api-java-bridge_2.11</artifactId>
+            <version>${flink.version}</version>
+        </dependency>
 
     </dependencies>
     <build>

@@ -31,7 +31,7 @@ public class KafkaSourceTemplate {
         env.setParallelism(2);
 
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "192.168.19.201:9092");
+        properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("group.id", "intsmaze");
 
         FlinkKafkaConsumer011<String> kafkaConsumer = new FlinkKafkaConsumer011<>(
@@ -54,7 +54,7 @@ public class KafkaSourceTemplate {
         env.setParallelism(2);
 
         Properties properties = new Properties();
-        properties.setProperty("bootstrap.servers", "192.168.19.201:9092");
+        properties.setProperty("bootstrap.servers", "localhost:9092");
         properties.setProperty("group.id", "intsmaze");
 
         String topic = "flink-intsmaze-two";

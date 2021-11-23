@@ -13,24 +13,10 @@ import org.apache.flink.util.Collector;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * github地址: https://github.com/intsmaze
- * 博客地址：https://www.cnblogs.com/intsmaze/
- * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
- *
- * @auther: intsmaze(刘洋)
- * @date: 2020/10/15 18:33
- */
+
 public class BroadcastStateTemplate {
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         env.setParallelism(2);
@@ -53,14 +39,7 @@ public class BroadcastStateTemplate {
         env.execute("BroadcastState Template");
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     private static class CustomBroadcastProcessFunction extends
             BroadcastProcessFunction<Date, Tuple2<Integer, String>, Tuple2<String, String>> {
         private static final long serialVersionUID = 1L;
@@ -68,11 +47,9 @@ public class BroadcastStateTemplate {
         private transient MapStateDescriptor<Integer, String> descriptor;
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -83,11 +60,9 @@ public class BroadcastStateTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -110,11 +85,9 @@ public class BroadcastStateTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -127,14 +100,7 @@ public class BroadcastStateTemplate {
 
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static class CustomSource implements SourceFunction<Date> {
 
         private Long sleep;
@@ -145,11 +111,9 @@ public class BroadcastStateTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -161,11 +125,9 @@ public class BroadcastStateTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -174,14 +136,7 @@ public class BroadcastStateTemplate {
 
     }
 
-    /**
-     * github地址: https://github.com/intsmaze
-     * 博客地址：https://www.cnblogs.com/intsmaze/
-     * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
-     *
-     * @auther: intsmaze(刘洋)
-     * @date: 2020/10/15 18:33
-     */
+
     public static class RuleSource implements SourceFunction<Tuple2<Integer, String>> {
         private static final long serialVersionUID = 1L;
 
@@ -189,11 +144,9 @@ public class BroadcastStateTemplate {
                 "yyyy-MM-dd", "yyyy-MM", "yyyy"};
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
@@ -208,11 +161,9 @@ public class BroadcastStateTemplate {
         }
 
         /**
-         * github地址: https://github.com/intsmaze
-         * 博客地址：https://www.cnblogs.com/intsmaze/
-         * 出版书籍《深入理解Flink核心设计与实践原理》 随书代码
+
          *
-         * @auther: intsmaze(刘洋)
+         
          * @date: 2020/10/15 18:33
          */
         @Override
