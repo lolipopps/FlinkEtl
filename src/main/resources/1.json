@@ -1,0 +1,27 @@
+[
+  {
+    "id": "9ce1270f-8744-463a-9ab2-2456c9d43a9e",
+    "devid": "SECMPT-000001",
+    "created": "1493726888",
+    "type": "log",
+    "name": "安全保密管理系统",
+    "number": "16",
+    "model": "",
+    "version": "04.02.040001",
+    "company": "中孚信息",
+    "op_code": "14",
+    "subject": "secadm@1234567890123456",
+    "object": "6F9619FF-8B86-D011-B42D-00C04FC964FF", /* 被授权系统/设备标识符 */
+    "kind": 0,
+    "level": 5,
+    "description": "添加管理员【user@1234567890123456】对系统【华为交换机】的授权",
+    "op_result": "成功",
+    "extensions": {
+      "userCard": "xxxxxxxx", /* 人员唯一编号 */
+      "biosUserName": "zhangsan@SOCID", /* 绑定的 BIOS 账号 */
+      "adminName": "系统管理员", /* 管理员名称 */
+      "adminCode": "001", /* 管理员编号 */
+      "password": "12314"
+    }
+  }
+]
