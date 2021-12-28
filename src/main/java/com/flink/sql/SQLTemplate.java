@@ -18,19 +18,12 @@ public class SQLTemplate {
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
         StreamTableEnvironment tableEnv = StreamTableEnvironment.create(env);
-
         String[] fieldNames = {"name", "age", "city"};
-
         TypeInformation[] fieldTypes = {Types.STRING(), Types.INT(), Types.STRING()};
-        TableSource csvSource = new CsvTableSource("///home/intsmaze/flink/table/data", fieldNames, fieldTypes);
-
+        TableSource csvSource = new CsvTableSource("./data", fieldNames, fieldTypes);
         tableEnv.registerTableSource("Person", csvSource);
-
-        Table table = tableEnv
-                .sqlQuery("SELECT name,count(1) FROM Person WHERE age >30 GROUP BY name");
-
+        Table table = tableEnv.sqlQuery("SELECT name,count(1) FROM Person WHERE age >30 GROUP BY name");
         tableEnv.toRetractStream(table, Row.class).print();
-
         env.execute();
     }
 }
